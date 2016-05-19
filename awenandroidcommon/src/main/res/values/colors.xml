@@ -1,0 +1,9 @@
+<resources>
+    <color name="actionbar_titilecolor">@android:color/black</color>
+    <color name="back_color">@android:color/black</color>
+    <color name="aac_color_white">@android:color/white</color>
+
+    <color name="colorPrimary">#FFD00B</color>
+    <color name="colorPrimaryDark">#20FFD00B</color>
+    <color name="button_default">#2196f3</color>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--stickyviewpager attrs start-->
+    <declare-styleable name="ForegroundImageView">
+        <attr name="android:foreground" />
+    </declare-styleable>
+
+    <attr name="aspect" />
+
+    <declare-styleable name="CustomSlidingTabIndicator">
+        <attr name="STIindicatorColor" format="color" />
+        <attr name="STIunderlineColor" format="color" />
+        <attr name="STIdividerColor" format="color" />
+        <attr name="STItextColor" format="color"/>
+        <attr name="STIindicatorHeight" format="dimension" />
+        <attr name="STIunderlineHeight" format="dimension" />
+        <attr name="STIdividersPadding" format="dimension" />
+        <attr name="STItabLeftRightPadding" format="dimension" />
+        <attr name="STIscrollOffSet" format="dimension" />
+        <attr name="STItabTextSize" format="dimension" />
+        <attr name="STItabBackground" format="reference" />
+        <attr name="STIshouldExpand" format="boolean" />
+        <attr name="STItextCaps" format="boolean" />
+        <attr name="STItabTopBtmPadding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SlidingTabLayout">
+        <attr name="indicatorColor" format="color"/>
+        <attr name="shouldExpand" format="boolean" />
+        <attr name="slidingTabView" format="reference" />
+        <attr name="slidingTabTextViewId" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+    <!--stickyviewpager attrs end-->
+
+
+    <declare-styleable name="bottomNav">
+        <attr name="navGrowTabs" format="reference|boolean"/>
+        <attr name="navGrowthModifier" format="reference|dimension"/>
+        <attr name="navShowCircleReveal" format="reference|boolean"/>
+        <attr name="navInitiallySelectedChild" format="reference|integer"/>
+        <attr name="navExpandAnimationTime" format="reference|integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="bottomTab">
+        <attr name="tabImage" format="reference"/>
+        <attr name="tabText" format="reference|string"/>
+        <attr name="tabColor" format="reference|color"/>
+        <attr name="textColor" format="reference|color"/>
+        <attr name="alwaysShowText" format="reference|boolean"/>
+        <attr name="unselectedAlpha" format="reference|float"/>
+    </declare-styleable>
+
+</resources>

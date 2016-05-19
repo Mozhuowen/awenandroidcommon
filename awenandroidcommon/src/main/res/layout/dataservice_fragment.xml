@@ -1,0 +1,25 @@
+<!--
+  ~ Create by Awen 16-1-12 上午11:24
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/default_loading"
+        style="?android:attr/progressBarStyleSmallInverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <!--网络请求失败或者为空都可用此textview-->
+    <TextView
+        android:id="@+id/networkfail_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="@string/aac_network_fail"/>
+
+</FrameLayout>
