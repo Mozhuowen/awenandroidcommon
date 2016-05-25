@@ -1,14 +1,9 @@
 package com.mozhuowen.rxandroidframework.ui.activity;
 
-import android.support.v4.view.ViewPager;
-
 import com.mozhuowen.rxandroid.activity.NormalActivity;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandler;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandlerDefault;
 import com.mozhuowen.rxandroidframework.R;
-import com.mozhuowen.widget.views.BottomNavigation.view.BottomNavigationView;
-
-import butterknife.Bind;
 
 /**
  * Created by Awen on 16/5/18.
@@ -16,10 +11,10 @@ import butterknife.Bind;
  */
 public class BottomActivity extends NormalActivity {
 
-    @Bind(R.id.bottom_navigation)
-    BottomNavigationView bottomNavigationView;
-    @Bind(R.id.viewPager)
-    ViewPager viewPager;
+//    @Bind(R.id.bottom_navigation)
+//    BottomNavigationView bottomNavigationView;
+//    @Bind(R.id.viewPager)
+//    ViewPager viewPager;
 
     @Override
     public String getTitleString() {

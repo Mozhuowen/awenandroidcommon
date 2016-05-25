@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name"></string>
     <string name="mdl_settings">设置</string>
     <string name="mdl_help_and_feedback">帮助</string>
     <string name="aac_network_fail">网络不给力,点击重试</string>

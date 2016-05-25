@@ -36,6 +36,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
 
+
+        </activity>
+
+        <activity android:name=".ui.activity.Test3Activity"
+            android:label="test3activty"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

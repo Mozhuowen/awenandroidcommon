@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <com.mozhuowen.widget.views.BottomNavigation.view.BottomNavigationView
+        <com.mozhuowen.widget.views.bottomnavigation.view.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -47,6 +47,6 @@
                 app:tabText="Help"
                 app:tabColor="@color/colorPrimary"/>
 
-        </com.mozhuowen.widget.views.BottomNavigation.view.BottomNavigationView>
+        </com.mozhuowen.widget.views.bottomnavigation.view.BottomNavigationView>
     </FrameLayout>
 </FrameLayout>

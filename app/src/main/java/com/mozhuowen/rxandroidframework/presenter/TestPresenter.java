@@ -12,7 +12,6 @@ import com.mozhuowen.rxandroidframework.http.ARetrofitClient;
 import com.mozhuowen.rxandroidframework.model.MeiziData;
 import com.mozhuowen.rxandroidframework.model.entity.Meizi;
 import com.mozhuowen.rxandroidframework.ui.activity.ViewCell;
-import com.mozhuowen.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +60,6 @@ public class TestPresenter extends BaseListPresenter{
                         }, new Action1<Throwable>() {
                             @Override
                             public void call(Throwable throwable) {
-                                LogUtil.d(throwable.getStackTrace());
                                 mView.showErrorView();
                             }
                         });
