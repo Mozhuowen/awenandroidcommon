@@ -2,9 +2,11 @@ package com.mozhuowen.rxandroidframework.ui.activity;
 
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.mozhuowen.rxandroid.adapter.BaseHolder;
 import com.mozhuowen.rxandroidframework.R;
 import com.mozhuowen.rxandroidframework.model.entity.Meizi;
@@ -21,6 +23,8 @@ public class ViewCell extends BaseHolder<Meizi> {
 
     @Bind(R.id.text)
     TextView textView;
+    @Bind(R.id.image)
+    ImageView image;
 
     public ViewCell(Context context, int layoutResId, ViewGroup parent, int viewType) {
         super(context, layoutResId, parent, viewType);
@@ -30,6 +34,10 @@ public class ViewCell extends BaseHolder<Meizi> {
     @Override
     public void bindData(Meizi data) {
         textView.setText(data.url);
+        Glide.with(mContext)
+                .load(data.url)
+                .crossFade()
+                .into(image);
     }
 
     @OnClick(R.id.item_layout)

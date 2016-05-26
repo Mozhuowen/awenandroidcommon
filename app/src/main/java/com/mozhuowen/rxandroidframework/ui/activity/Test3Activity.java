@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.mozhuowen.rxandroid.activity.BottomNavigationActivity;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandler;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandlerDefault;
-import com.mozhuowen.widget.material.fragment.BlankFragment;
+import com.mozhuowen.rxandroidframework.ui.fragment.TestListFragment;
 import com.mozhuowen.widget.views.bottomnavigation.Controller;
 import com.mozhuowen.widget.views.bottomnavigation.TabItemBuilder;
 import com.mozhuowen.widget.views.bottomnavigation.TabLayoutMode;
@@ -29,7 +29,7 @@ public class Test3Activity extends BottomNavigationActivity {
 
     @Override
     public boolean isActionbarVisible() {
-        return true;
+        return false;
     }
 
     @Override
@@ -70,18 +70,18 @@ public class Test3Activity extends BottomNavigationActivity {
         TabItemBuilder tabItemBuilder = new TabItemBuilder(this).create()
                 .setDefaultIcon(android.R.drawable.ic_menu_send)
                 .setText("信息")
-                .setSelectedColor(testColors[0])
                 .setTag("A")
                 .build();
 
         Controller controller = builder
                 .addTabItem(tabItemBuilder)
-                .addTabItem(android.R.drawable.ic_menu_compass, "位置",testColors[1])
-                .addTabItem(android.R.drawable.ic_menu_search, "搜索",testColors[2])
-                .addTabItem(android.R.drawable.ic_menu_help, "帮助",testColors[3])
+                .addTabItem(android.R.drawable.ic_menu_compass, "位置")
+                .addTabItem(android.R.drawable.ic_menu_search, "搜索")
+                .addTabItem(android.R.drawable.ic_menu_help, "帮助")
+                .setDefaultColor(testColors[0])
 //                .setMode(TabLayoutMode.HIDE_TEXT)
 //                .setMode(TabLayoutMode.CHANGE_BACKGROUND_COLOR)
-                .setMode(TabLayoutMode.HIDE_TEXT| TabLayoutMode.CHANGE_BACKGROUND_COLOR)
+                .setMode(TabLayoutMode.HIDE_TEXT)
                 .build();
 
         return controller;
@@ -92,7 +92,7 @@ public class Test3Activity extends BottomNavigationActivity {
 
         FragmentHandle handle = new FragmentHandle();
         for (int i=0;i<4;i++) {
-            BlankFragment fragment = new BlankFragment();
+            TestListFragment fragment = new TestListFragment();
             Bundle bundle = new Bundle();
             bundle.putString("content",i+"");
             fragment.setArguments(bundle);

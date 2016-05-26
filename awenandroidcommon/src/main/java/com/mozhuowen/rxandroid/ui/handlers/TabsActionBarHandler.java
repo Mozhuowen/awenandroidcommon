@@ -3,14 +3,14 @@ package com.mozhuowen.rxandroid.ui.handlers;
 import android.content.Context;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.blunderer.materialdesignlibrary.views.Toolbar;
-import com.mozhuowen.widget.material.views.TabsToolBar;
+import com.mozhuowen.rxandroid.ui.TabsToolBar;
+import com.mozhuowen.rxandroid.ui.Toolbar;
 
 /**
  * Created by Awen on 16/5/17.
  * Email:mozhuowen@gmail.com
  */
-public class TabsActionBarHandler extends com.blunderer.materialdesignlibrary.handlers.ActionBarHandler {
+public class TabsActionBarHandler extends ActionBarHandler {
     TabsToolBar tabsToolBar;
 
     public TabsActionBarHandler(Context context) {

@@ -51,6 +51,7 @@ public abstract class BottomNavigationActivity extends NormalActivity {
 
         bnAdapter = new BNAdapter(getSupportFragmentManager(),this);
         bnAdapter.setFragments(getFragmentHandle().getFragmentList());
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(bnAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
