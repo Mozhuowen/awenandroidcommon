@@ -1,0 +1,82 @@
+package com.mozhuowen.rxandroid.model;
+
+import java.io.Serializable;
+
+/**
+ * Created by Awen on 16/6/7.
+ * Email:mozhuowen@gmail.com
+ */
+public class BaseEveHttpModel implements Serializable {
+
+    public String _updated;
+    public boolean _deleted;
+    public String _created;
+    public String _status;
+    public String _id;
+    public String _etag;
+    public Meta _meta;
+
+    public static class Meta
+    {
+        public int max_results;
+        public int total;
+        public int page;
+    }
+
+
+    public String get_created() {
+        return _created;
+    }
+
+    public void set_created(String _created) {
+        this._created = _created;
+    }
+
+    public boolean is_deleted() {
+        return _deleted;
+    }
+
+    public void set_deleted(boolean _deleted) {
+        this._deleted = _deleted;
+    }
+
+    public String get_etag() {
+        return _etag;
+    }
+
+    public void set_etag(String _etag) {
+        this._etag = _etag;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public Meta get_meta() {
+        return _meta;
+    }
+
+    public void set_meta(Meta _meta) {
+        this._meta = _meta;
+    }
+
+    public String get_status() {
+        return _status;
+    }
+
+    public void set_status(String _status) {
+        this._status = _status;
+    }
+
+    public String get_updated() {
+        return _updated;
+    }
+
+    public void set_updated(String _updated) {
+        this._updated = _updated;
+    }
+}

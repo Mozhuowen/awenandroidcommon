@@ -1,7 +1,6 @@
 package com.mozhuowen.rxandroidframework.http;
 
 import com.mozhuowen.rxandroid.service.http.BaseRetrofitClient;
-import com.mozhuowen.rxandroid.service.http.ExtendInterceptor;
 import com.mozhuowen.rxandroidframework.BuildConfig;
 
 /**
@@ -18,7 +17,8 @@ public class ARetrofitClient extends BaseRetrofitClient<ARetrofit> {
     public static ARetrofit getRetrofitInstance() {
         if ( retrofit == null) {
 //            retrofit =  new ARetrofitClient().getBaseClient("release.crazyfit.appcomeon.com","/",ARetrofit.class, BuildConfig.DEBUG);
-            retrofit =  new ARetrofitClient().getBaseClient("gank.io","/api/",ARetrofit.class, BuildConfig.DEBUG);
+//            retrofit =  new ARetrofitClient().getBaseClient("gank.io","/api/",ARetrofit.class, BuildConfig.DEBUG);
+            retrofit =  new ARetrofitClient().getBaseClient("192.168.31.191:5000","/",ARetrofit.class, BuildConfig.DEBUG);
         }
 
         return retrofit;
@@ -26,7 +26,7 @@ public class ARetrofitClient extends BaseRetrofitClient<ARetrofit> {
 
     @Override
     protected void setExtendInterceptor() {
-        ExtendInterceptor interceptor = new HttpServiceConfig();
-        this.extendInterceptor = interceptor;
+//        ExtendInterceptor interceptor = new HttpServiceConfig();
+//        this.extendInterceptor = interceptor;
     }
 }

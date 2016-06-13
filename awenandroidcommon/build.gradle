@@ -53,4 +53,6 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    //nosql database with encrpy
+    compile 'com.github.rehacktive:waspdb:1.0'
 }

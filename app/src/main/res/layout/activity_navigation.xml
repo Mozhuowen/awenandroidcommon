@@ -16,14 +16,14 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <com.mozhuowen.widget.views.bottomnavigation.view.BottomNavigationView
+        <com.mozhuowen.widget.views.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="bottom"
             app:layout_behavior="ca.gcastle.bottomnavigation.behaviour.BottomNavigationBehavior">
 
-            <com.mozhuowen.widget.views.BottomNavigation.view.BottomNavigationTabView
+            <com.mozhuowen.widget.views.bottomNavigation.view.BottomNavigationTabView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/home"
@@ -31,7 +31,7 @@
                 app:tabText="Home"
                 app:tabColor="@color/colorPrimary"/>
 
-            <com.mozhuowen.widget.views.BottomNavigation.view.BottomNavigationTabView
+            <com.mozhuowen.widget.views.bottomNavigation.view.BottomNavigationTabView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/search"
@@ -39,7 +39,7 @@
                 app:tabText="Search"
                 app:tabColor="@color/colorPrimary"/>
 
-            <com.mozhuowen.widget.views.BottomNavigation.view.BottomNavigationTabView
+            <com.mozhuowen.widget.views.bottomNavigation.view.BottomNavigationTabView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/help"
@@ -47,6 +47,6 @@
                 app:tabText="Help"
                 app:tabColor="@color/colorPrimary"/>
 
-        </com.mozhuowen.widget.views.bottomnavigation.view.BottomNavigationView>
+        </com.mozhuowen.widget.views.bottomnavigation.BottomNavigationView>
     </FrameLayout>
 </FrameLayout>
