@@ -9,11 +9,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.mozhuowen.rxandroid.adapter.BaseListAdapter;
 import com.mozhuowen.rxandroid.adapter.ListLoadType;
+
+import java.util.Arrays;
 
 /**
  *
@@ -99,16 +102,34 @@ public class LMRecyclerView extends RecyclerView {
             }
         }
 */
-       LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
-        if (state == RecyclerView.SCROLL_STATE_IDLE) {
-            if (baseListAdapter.isEnableFooter() && !baseListAdapter.isLoadingMore()) {
-                int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                int totalItemCount = baseListAdapter.getItemCount();
-                if (lastVisibleItem == (totalItemCount - 1) && baseListAdapter.getLoadType() == ListLoadType.AUTO_LOAD) {
-                    baseListAdapter.setLoadingMore(true);
-                    baseListAdapter.setLoastLoadMorePosition(lastVisibleItem);
-                    if (listener != null)
-                        listener.onLoadMore();
+        if (getLayoutManager() instanceof  LinearLayoutManager) {
+            LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
+            if (state == RecyclerView.SCROLL_STATE_IDLE) {
+                if (baseListAdapter.isEnableFooter() && !baseListAdapter.isLoadingMore()) {
+                    int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
+                    int totalItemCount = baseListAdapter.getItemCount();
+                    if (lastVisibleItem == (totalItemCount - 1) && baseListAdapter.getLoadType() == ListLoadType.AUTO_LOAD) {
+                        baseListAdapter.setLoadingMore(true);
+                        baseListAdapter.setLoastLoadMorePosition(lastVisibleItem);
+                        if (listener != null)
+                            listener.onLoadMore();
+                    }
+                }
+            }
+        } else if( getLayoutManager() instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) getLayoutManager();
+            if (state == RecyclerView.SCROLL_STATE_IDLE) {
+                if (baseListAdapter.isEnableFooter() && !baseListAdapter.isLoadingMore()) {
+                    int[] lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPositions(null);
+                    Arrays.sort(lastVisibleItem);
+
+                    int totalItemCount = baseListAdapter.getItemCount();
+                    if ( lastVisibleItem[1] == (totalItemCount - 1) && baseListAdapter.getLoadType() == ListLoadType.AUTO_LOAD) {
+                        baseListAdapter.setLoadingMore(true);
+                        baseListAdapter.setLoastLoadMorePosition(lastVisibleItem[1]);
+                        if (listener != null)
+                            listener.onLoadMore();
+                    }
                 }
             }
         }
