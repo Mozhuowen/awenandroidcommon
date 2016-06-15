@@ -14,9 +14,11 @@ import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandlerDefault;
 import com.mozhuowen.rxandroidframework.R;
 import com.mozhuowen.rxandroidframework.context.App;
 import com.mozhuowen.rxandroidframework.model.entity.MovieItem;
-import com.mozhuowen.rxandroidframework.presenter.TestEvePresenter;
+import com.mozhuowen.rxandroidframework.presenter.SimpleEvePresenter;
 import com.mozhuowen.rxandroidframework.ui.iView.TestEveView;
 import com.mozhuowen.util.LogUtil;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,7 +29,7 @@ import butterknife.ButterKnife;
  */
 public class EditEveActivity extends NormalActivity implements TestEveView {
 
-    TestEvePresenter presenter;
+    SimpleEvePresenter presenter;
     String dataId;
     MovieItem movieItem;
 
@@ -55,9 +57,9 @@ public class EditEveActivity extends NormalActivity implements TestEveView {
 
     @Override
     protected void initPresenter() {
-        presenter = new TestEvePresenter(this,this);
+        presenter = new SimpleEvePresenter(this,this);
         presenter.init();
-        presenter.fetchOneData(dataId);
+//        presenter.fetchOneData(dataId);
     }
 
     @Override
@@ -97,9 +99,15 @@ public class EditEveActivity extends NormalActivity implements TestEveView {
                 String url_detail_new = url_detail.getText().toString();
                 movieItem.setUrl_detail(url_detail_new);
 
-                presenter.addOneData(movieItem);
+                presenter.updateOneItem(movieItem);
             }
         });
+
+        MovieItem item = App.getDbHash().get(dataId);
+        if (item != null)
+            onGetData(item);
+        else
+            presenter.getOneItem(dataId);
     }
 
     @Override
@@ -116,7 +124,7 @@ public class EditEveActivity extends NormalActivity implements TestEveView {
         this.url_detail.setText(movieItem.url_detail);
         Glide.with(this).load(movieItem.image_urls.get(0)).crossFade().into(image);
 
-        initDb();
+//        initDb();
     }
 
     public void initDb() {
@@ -126,6 +134,34 @@ public class EditEveActivity extends NormalActivity implements TestEveView {
         Toast.makeText(EditEveActivity.this, m.url_detail, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void showLoadingView() {
 
+    }
 
+    @Override
+    public void showErrorView() {
+
+    }
+
+    @Override
+    public void showRefreshProgress() {
+
+    }
+
+    @Override
+    public void hideRefreshProgress() {
+
+    }
+
+    /**Not used*/
+    @Override
+    public void showList(List<MovieItem> datalist) {
+
+    }
+    /**Not used*/
+    @Override
+    public void showList(List<MovieItem> datalist, boolean hasnext) {
+
+    }
 }

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.mozhuowen.rxandroid.adapter.BaseListAdapter;
+import com.mozhuowen.rxandroid.model.BaseEveHttpModel;
 import com.mozhuowen.rxandroid.model.EveListHttpModel;
 import com.mozhuowen.rxandroid.presenter.BaseListPresenter;
 import com.mozhuowen.rxandroid.ui.LMRecyclerView;
 import com.mozhuowen.rxandroid.ui.ListView;
 import com.mozhuowen.rxandroidframework.R;
+import com.mozhuowen.rxandroidframework.context.App;
 import com.mozhuowen.rxandroidframework.http.ARetrofitClient;
 import com.mozhuowen.rxandroidframework.model.entity.MovieItem;
 import com.mozhuowen.rxandroidframework.ui.activity.ViewCellEve;
@@ -27,7 +29,8 @@ import rx.schedulers.Schedulers;
  */
 public class TestPresenter extends BaseListPresenter{
 
-    public int page = 1;
+    public String page = "1";
+    public BaseEveHttpModel currentHttpModel = null;
 
     BaseListAdapter<ViewCellEve,MovieItem> adapter;
 //    BaseListAdapter<ViewCellEve,MovieItem> adapter;
@@ -69,12 +72,13 @@ public class TestPresenter extends BaseListPresenter{
 //    }
     @Override
     public void fetchData() {
-        ARetrofitClient.getRetrofitInstance().getMovie()
+        ARetrofitClient.getRetrofitInstance().getMovie("movies")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<EveListHttpModel<MovieItem>>() {
                     @Override
                     public void call(EveListHttpModel<MovieItem> meiziData) {
+                        LogUtil.d("test object to string ->"+meiziData._links.next.href);
                         mView.showList((meiziData._items));
                     }
                 }, new Action1<Throwable>() {
@@ -84,6 +88,35 @@ public class TestPresenter extends BaseListPresenter{
                         LogUtil.d(throwable.getMessage());
                     }
                 });
+    }
+
+    public void fetchNextPage() {
+        if (currentHttpModel != null)
+            page = currentHttpModel.getNextPage();
+        else
+            page = "1";
+
+        ARetrofitClient.getRetrofitInstance().getMovie(page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<EveListHttpModel<MovieItem>>() {
+                    @Override
+                    public void call(EveListHttpModel<MovieItem> meiziData) {
+                        currentHttpModel = meiziData;
+                        mView.showList(meiziData._items,meiziData.hasNext());
+                        saveObjects2Cache(meiziData._items);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        mView.showErrorView();
+                        LogUtil.d(throwable.getMessage());
+                    }
+                });
+    }
+
+    public void refreshBefore() {
+        currentHttpModel = null;
     }
 
     public void setLoadMoreListener(LMRecyclerView.LoadMoreListener loadMoreListener) {
@@ -116,5 +149,15 @@ public class TestPresenter extends BaseListPresenter{
     public void setRecyclerView(LMRecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         this.recyclerView.setAdapter(adapter);
+    }
+
+    public void saveObject2Cache(MovieItem o) {
+        App.getDbHash().put(o._id,o);
+    }
+
+    public void saveObjects2Cache(List<MovieItem> olist) {
+        for (BaseEveHttpModel object:olist) {
+            App.getDbHash().put(object._id,object);
+        }
     }
 }

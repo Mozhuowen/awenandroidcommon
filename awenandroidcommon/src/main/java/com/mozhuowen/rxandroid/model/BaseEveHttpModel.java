@@ -1,5 +1,7 @@
 package com.mozhuowen.rxandroid.model;
 
+import com.mozhuowen.util.JsonUtil;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,8 @@ import java.io.Serializable;
  */
 public class BaseEveHttpModel implements Serializable {
 
+    public BaseEveHttpModel(){}
+
     public String _updated;
     public boolean _deleted;
     public String _created;
@@ -15,12 +19,63 @@ public class BaseEveHttpModel implements Serializable {
     public String _id;
     public String _etag;
     public Meta _meta;
+    public Links _links;
+    private String nextPage;
+    private String prePage = "1";
 
     public static class Meta
     {
         public int max_results;
         public int total;
         public int page;
+    }
+
+    public static class Link
+    {
+        public String href;
+        public String title;
+    }
+
+    public static class Links
+    {
+        public Link self;
+        public Link last;
+        public Link parent;
+        public Link next;
+        public Link collection;
+    }
+
+    public String toString() {
+        return JsonUtil.getInstance().JsontoString(this);
+    }
+
+    public BaseEveHttpModel toAddObject() {
+        this._id = null;
+        return this;
+    }
+
+    public BaseEveHttpModel toUpdateObject() {
+        return this;
+    }
+
+    public String getNextPage() {
+        if (_links.next != null && _links.next.href.contains("?")) {
+            String[] strs = _links.next.href.split("\\?")[1].split("&");
+            for(String str:strs) {
+                if (str.contains("page"))
+                    this.nextPage = str.substring(5);
+            }
+            return this.nextPage;
+        }
+        return "1";
+    }
+
+    public boolean hasNext() {
+        return _links.next != null;
+    }
+
+    public String getPrePage() {
+        return "1";
     }
 
 

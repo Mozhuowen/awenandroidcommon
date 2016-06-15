@@ -13,4 +13,5 @@ public interface ListView<T> extends BaseView {
     void showRefreshProgress();
     void hideRefreshProgress();
     void showList(List<T> datalist);
+    void showList(List<T> datalist,boolean hasnext);
 }

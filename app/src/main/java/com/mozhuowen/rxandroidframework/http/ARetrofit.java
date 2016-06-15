@@ -16,6 +16,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -46,9 +47,11 @@ public interface ARetrofit
     //mygetrequest
     @GET("/system/upgrade/")
     Observable<HttpResult> getUpgradeInfo();
+
+
     //testEve
     @GET("/movies")
-    Observable<EveListHttpModel<MovieItem>> getMovie();
+    Observable<EveListHttpModel<MovieItem>> getMovie(@Query("page") String page);
 
     @GET("/movies/{id}")
     Observable<MovieItem> getOneMovie(@Path("id") String id);

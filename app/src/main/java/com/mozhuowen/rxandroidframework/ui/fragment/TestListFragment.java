@@ -75,7 +75,7 @@ public class TestListFragment extends BaseListFragment {
             @Override
             public void onClick(View v) {
                 showLoadingView();
-                presenter.page = 1;
+//                presenter.page = 1;
                 presenter.fetchData();
             }
         });
@@ -112,6 +112,11 @@ public class TestListFragment extends BaseListFragment {
     }
 
     @Override
+    public void showList(List datalist, boolean hasnext) {
+
+    }
+
+    @Override
     public void initViews() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -129,7 +134,7 @@ public class TestListFragment extends BaseListFragment {
     @Override
     public void onRefresh() {
         isRefresh = true;
-        presenter.page = 1;
+//        presenter.page = 1;
         presenter.fetchData();
     }
 

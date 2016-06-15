@@ -9,6 +9,7 @@ import java.util.List;
  * Email:mozhuowen@gmail.com
  */
 public class MovieItem extends BaseEveHttpModel {
+    public MovieItem(){}
 
     public String title;
     public String fuck;

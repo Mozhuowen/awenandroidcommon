@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.mozhuowen.rxandroid.ui.LMRecyclerView;
 import com.mozhuowen.rxandroidframework.R;
+import com.mozhuowen.rxandroidframework.model.entity.Meizi;
 import com.mozhuowen.rxandroidframework.presenter.TestPresenter;
 import com.mozhuowen.rxandroidframework.ui.iView.TestListView;
 
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements TestListView,
             @Override
             public void onClick(View v) {
                 showLoadingView();
-                presenter.page = 1;
                 presenter.fetchData();
             }
         });
@@ -92,6 +92,11 @@ public class MainActivity extends AppCompatActivity implements TestListView,
         error_view.setVisibility(View.GONE);
         full_progressbar.setVisibility(View.GONE);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showList(List<Meizi> datalist, boolean hasnext) {
+
     }
 
     @Override
@@ -130,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements TestListView,
     @Override
     public void onRefresh() {
         isRefresh = true;
-        presenter.page = 1;
         presenter.fetchData();
     }
 }

@@ -2,6 +2,8 @@ package com.mozhuowen.rxandroidframework.context;
 
 import android.app.Application;
 
+import com.mozhuowen.util.LogUtil;
+
 import net.rehacktive.waspdb.WaspDb;
 import net.rehacktive.waspdb.WaspFactory;
 import net.rehacktive.waspdb.WaspHash;
@@ -23,9 +25,11 @@ public class App extends Application {
     }
 
     public void initDb() {
-        String path = getFilesDir().getPath();
+        String path = getExternalFilesDir(null).getPath();
         String databaseName = "awen";
         String password = "0603";
+
+        LogUtil.d("path is->"+path);
 
         WaspFactory.openOrCreateDatabase(path,databaseName,password,new WaspListener<WaspDb>() {
             @Override
