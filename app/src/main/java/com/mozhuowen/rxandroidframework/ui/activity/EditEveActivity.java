@@ -5,7 +5,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mozhuowen.rxandroid.activity.NormalActivity;
@@ -125,13 +124,6 @@ public class EditEveActivity extends NormalActivity implements TestEveView {
         Glide.with(this).load(movieItem.image_urls.get(0)).crossFade().into(image);
 
 //        initDb();
-    }
-
-    public void initDb() {
-        App.getDbHash().put(movieItem._id,movieItem);
-
-        MovieItem m = App.getDbHash().get(movieItem._id);
-        Toast.makeText(EditEveActivity.this, m.url_detail, Toast.LENGTH_SHORT).show();
     }
 
     @Override

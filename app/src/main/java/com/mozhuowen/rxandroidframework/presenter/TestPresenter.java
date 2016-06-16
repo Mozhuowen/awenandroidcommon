@@ -29,7 +29,7 @@ import rx.schedulers.Schedulers;
  */
 public class TestPresenter extends BaseListPresenter{
 
-    public String page = "1";
+    public int page = 0;
     public BaseEveHttpModel currentHttpModel = null;
 
     BaseListAdapter<ViewCellEve,MovieItem> adapter;
@@ -45,7 +45,7 @@ public class TestPresenter extends BaseListPresenter{
 //        List<MovieItem> list = new ArrayList<>();
         List<MovieItem> list = new ArrayList<>();
         adapter = new BaseListAdapter<>(mContext, R.layout.item_ganhuo,list,ViewCellEve.class);
-        adapter.setAutoLoadMoreEnable(true);
+        adapter.setAutoLoadMoreEnable(false);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class TestPresenter extends BaseListPresenter{
 //    }
     @Override
     public void fetchData() {
-        ARetrofitClient.getRetrofitInstance().getMovie("movies")
+        ARetrofitClient.getRetrofitInstance().getMovie(page,26)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<EveListHttpModel<MovieItem>>() {
@@ -91,24 +91,25 @@ public class TestPresenter extends BaseListPresenter{
     }
 
     public void fetchNextPage() {
-        if (currentHttpModel != null)
-            page = currentHttpModel.getNextPage();
-        else
-            page = "1";
+//        if (currentHttpModel != null)
+//            page = currentHttpModel.getNextPage();
+//        else
+//            page = "1";
 
-        ARetrofitClient.getRetrofitInstance().getMovie(page)
+        ARetrofitClient.getRetrofitInstance().getMovie(++page,26)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<EveListHttpModel<MovieItem>>() {
                     @Override
                     public void call(EveListHttpModel<MovieItem> meiziData) {
                         currentHttpModel = meiziData;
-                        mView.showList(meiziData._items,meiziData.hasNext());
+                        mView.showList(meiziData._items);
                         saveObjects2Cache(meiziData._items);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        --page;
                         mView.showErrorView();
                         LogUtil.d(throwable.getMessage());
                     }
@@ -117,6 +118,7 @@ public class TestPresenter extends BaseListPresenter{
 
     public void refreshBefore() {
         currentHttpModel = null;
+        page = 0;
     }
 
     public void setLoadMoreListener(LMRecyclerView.LoadMoreListener loadMoreListener) {

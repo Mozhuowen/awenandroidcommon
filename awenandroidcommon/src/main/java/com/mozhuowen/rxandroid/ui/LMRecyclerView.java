@@ -53,12 +53,14 @@ public class LMRecyclerView extends RecyclerView {
     public void setBaseListAdapter(BaseListAdapter baseListAdapter) {
         super.setAdapter(baseListAdapter);
         this.baseListAdapter = baseListAdapter;
+        this.baseListAdapter.setRecyclerView(this);
     }
 
     @Override
     public void setAdapter(Adapter adapter) {
         if (adapter instanceof BaseListAdapter)
             this.baseListAdapter = (BaseListAdapter) adapter;
+        this.baseListAdapter.setRecyclerView(this);
         super.setAdapter(adapter);
     }
 
@@ -77,7 +79,7 @@ public class LMRecyclerView extends RecyclerView {
     }
 
     @Override
-    public void onScrollStateChanged(int state) {
+    public void onScrollStateChanged (int state) {
        /* LinearLayoutManager mLayoutManager = (LinearLayoutManager) getLayoutManager();
         int lastVisibleItemPosition = 0;
         int totalItemCount = 0;
@@ -102,34 +104,34 @@ public class LMRecyclerView extends RecyclerView {
             }
         }
 */
+        if (state != RecyclerView.SCROLL_STATE_IDLE)
+            return;
+
+
         if (getLayoutManager() instanceof  LinearLayoutManager) {
             LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
-            if (state == RecyclerView.SCROLL_STATE_IDLE) {
-                if (baseListAdapter.isEnableFooter() && !baseListAdapter.isLoadingMore()) {
-                    int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                    int totalItemCount = baseListAdapter.getItemCount();
-                    if (lastVisibleItem == (totalItemCount - 1) && baseListAdapter.getLoadType() == ListLoadType.AUTO_LOAD) {
-                        baseListAdapter.setLoadingMore(true);
-                        baseListAdapter.setLoastLoadMorePosition(lastVisibleItem);
-                        if (listener != null)
-                            listener.onLoadMore();
-                    }
+            if (baseListAdapter.isEnableFooter() && !baseListAdapter.isLoadingMore()) {
+                int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
+                int totalItemCount = baseListAdapter.getItemCount();
+                if (lastVisibleItem == (totalItemCount - 1) && baseListAdapter.getLoadType() == ListLoadType.AUTO_LOAD) {
+                    baseListAdapter.setLoadingMore(true);
+                    baseListAdapter.setLoastLoadMorePosition(lastVisibleItem);
+                    if (listener != null)
+                        listener.onLoadMore();
                 }
             }
         } else if( getLayoutManager() instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) getLayoutManager();
-            if (state == RecyclerView.SCROLL_STATE_IDLE) {
-                if (baseListAdapter.isEnableFooter() && !baseListAdapter.isLoadingMore()) {
-                    int[] lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPositions(null);
-                    Arrays.sort(lastVisibleItem);
+            if (baseListAdapter.isEnableFooter() && !baseListAdapter.isLoadingMore()) {
+                int[] lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPositions(null);
+                Arrays.sort(lastVisibleItem);
 
-                    int totalItemCount = baseListAdapter.getItemCount();
-                    if ( lastVisibleItem[1] == (totalItemCount - 1) && baseListAdapter.getLoadType() == ListLoadType.AUTO_LOAD) {
-                        baseListAdapter.setLoadingMore(true);
-                        baseListAdapter.setLoastLoadMorePosition(lastVisibleItem[1]);
-                        if (listener != null)
-                            listener.onLoadMore();
-                    }
+                int totalItemCount = baseListAdapter.getItemCount();
+                if ( lastVisibleItem[1] == (totalItemCount - 1) && baseListAdapter.getLoadType() == ListLoadType.AUTO_LOAD) {
+                    baseListAdapter.setLoadingMore(true);
+                    baseListAdapter.setLoastLoadMorePosition(lastVisibleItem[1]);
+                    if (listener != null)
+                        listener.onLoadMore();
                 }
             }
         }

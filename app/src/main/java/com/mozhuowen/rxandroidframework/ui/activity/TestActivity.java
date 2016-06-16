@@ -94,7 +94,7 @@ public class TestActivity extends BaseListActivity{
     public void showErrorView() {
         presenter.getAdapter().notifyMoreFinish(true);
         Toast.makeText(this, "好像出了点小问题", Toast.LENGTH_SHORT).show();
-
+        hideRefreshProgress();
         full_progressbar.setVisibility(View.GONE);
         swipeRefreshLayout.setVisibility(View.GONE);
         error_view.setVisibility(View.VISIBLE);
@@ -126,7 +126,7 @@ public class TestActivity extends BaseListActivity{
         if (isRefresh) {
             presenter.getAdapter().getDataSource().clear();
             presenter.getAdapter().addDataSource(datalist);
-            presenter.getAdapter().notifyMoreFinish(true);
+            presenter.getAdapter().notifyRefreshFinish();
             isRefresh = false;
         } else {
             presenter.getAdapter().addDataSource(datalist);
@@ -160,6 +160,7 @@ public class TestActivity extends BaseListActivity{
         ButterKnife.bind(this);
 
         RecyclerView.LayoutManager mLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
@@ -182,6 +183,7 @@ public class TestActivity extends BaseListActivity{
     public void onRefresh() {
         isRefresh = true;
         presenter.currentHttpModel = null;
+        presenter.refreshBefore();
         presenter.fetchNextPage();
     }
 }

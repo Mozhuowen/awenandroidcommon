@@ -51,7 +51,7 @@ public interface ARetrofit
 
     //testEve
     @GET("/movies")
-    Observable<EveListHttpModel<MovieItem>> getMovie(@Query("page") String page);
+    Observable<EveListHttpModel<MovieItem>> getMovie(@Query("page") int page,@Query("max_results") int maxresults);
 
     @GET("/movies/{id}")
     Observable<MovieItem> getOneMovie(@Path("id") String id);

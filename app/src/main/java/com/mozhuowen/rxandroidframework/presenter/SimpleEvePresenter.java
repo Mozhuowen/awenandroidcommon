@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
  */
 public class SimpleEvePresenter extends BaseEvePresenter<TestEveView> {
 
-    protected int page = -1;
+    protected int page = 0;
     public BaseEveHttpModel currentHttpModel = null;
 
     BaseListAdapter<ViewCellEve,MovieItem> adapter;
@@ -118,6 +118,8 @@ public class SimpleEvePresenter extends BaseEvePresenter<TestEveView> {
                     public void call(BaseEveHttpModel data) {
                         if (data._status.equals("OK")) {
                             Toast.makeText(context, "更新成功", Toast.LENGTH_SHORT).show();
+                            //更新本地MODEL的ETAG
+                            item.set_etag(data._etag);
                             updateLocalStorage((MovieItem) item);
                         }else
                             Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
@@ -125,6 +127,7 @@ public class SimpleEvePresenter extends BaseEvePresenter<TestEveView> {
                 },new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
                         LogUtil.d(throwable.getMessage());
                     }
                 });
@@ -156,16 +159,16 @@ public class SimpleEvePresenter extends BaseEvePresenter<TestEveView> {
 
     @Override
     public void fetchNextPage() {
-        String nextPath = null;
-        if (currentHttpModel != null)
-            nextPath = currentHttpModel._links.next.href == null ? null:currentHttpModel._links.next.href;
-        else
-            nextPath = "movies";
+//        String nextPath = null;
+//        if (currentHttpModel != null)
+//            nextPath = currentHttpModel._links.next.href == null ? null:currentHttpModel._links.next.href;
+//        else
+//            nextPath = "movies";
+//
+//        if (nextPath == null)
+//            return;
 
-        if (nextPath == null)
-            return;
-
-        ARetrofitClient.getRetrofitInstance().getMovie(nextPath)
+        ARetrofitClient.getRetrofitInstance().getMovie(++page,26)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<EveListHttpModel<MovieItem>>() {

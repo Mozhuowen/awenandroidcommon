@@ -2,6 +2,7 @@ package com.mozhuowen.rxandroid.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
 import com.mozhuowen.rxandroid.ui.LMRecyclerView;
@@ -33,6 +34,7 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
     private Context mContext;
     private Class viewHolderClass;   //ViewHolder类
     private BaseHolder headerView;  //header
+    private RecyclerView recyclerView;
 
     public BaseListAdapter(Context context,int layoutResId, List<R> dataSource,Class viewHolderClass) {
         this.mLayoutResId = layoutResId;
@@ -43,9 +45,18 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
 
     @Override
     public BaseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_FOOTER)
-            return new FooterViewHolder(mContext,parent);
-        else if (viewType == TYPE_HEADER)
+        if (viewType == TYPE_FOOTER) {
+
+            if (this.recyclerView.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+                RecyclerView.ViewHolder viewHolder = new FooterViewHolder(mContext, parent);
+                StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) viewHolder.itemView.getLayoutParams();
+                layoutParams.setFullSpan(true);
+                viewHolder.itemView.setLayoutParams(layoutParams);
+                return (BaseHolder) viewHolder;
+            }
+
+            return new FooterViewHolder(mContext, parent);
+        } else if (viewType == TYPE_HEADER)
             return headerView;
         else
             return (T)newTclass(viewHolderClass,mLayoutResId,parent,viewType);
@@ -112,6 +123,12 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
         isLoadingMore = false;
     }
 
+    public void notifyRefreshFinish() {
+        setAutoLoadMoreEnable(true);
+        isLoadingMore = false;
+        notifyDataSetChanged();
+    }
+
     public Class getViewHolderClass() {
         return viewHolderClass;
     }
@@ -146,6 +163,14 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
 
     public boolean isEnableHeader() {
         return enableHeader;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return this.recyclerView;
     }
 
     /**
