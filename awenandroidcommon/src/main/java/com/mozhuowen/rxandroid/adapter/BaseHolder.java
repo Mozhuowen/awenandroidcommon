@@ -15,10 +15,12 @@ import butterknife.ButterKnife;
 public abstract class BaseHolder<T> extends RecyclerView.ViewHolder {
 
     protected Context mContext;
+    protected View mView;
 
     public BaseHolder(Context context,int layoutResId, ViewGroup parent, int viewType) {
         super(LayoutInflater.from(context).inflate(layoutResId,parent,false));
         this.mContext = context;
+        this.mView = itemView;
         ButterKnife.bind(this,itemView);
     }
 

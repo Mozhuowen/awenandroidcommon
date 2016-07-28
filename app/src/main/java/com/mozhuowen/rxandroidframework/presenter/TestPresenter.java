@@ -10,7 +10,6 @@ import com.mozhuowen.rxandroid.presenter.BaseListPresenter;
 import com.mozhuowen.rxandroid.ui.LMRecyclerView;
 import com.mozhuowen.rxandroid.ui.ListView;
 import com.mozhuowen.rxandroidframework.R;
-import com.mozhuowen.rxandroidframework.context.App;
 import com.mozhuowen.rxandroidframework.http.ARetrofitClient;
 import com.mozhuowen.rxandroidframework.model.entity.MovieItem;
 import com.mozhuowen.rxandroidframework.ui.activity.ViewCellEve;
@@ -154,12 +153,12 @@ public class TestPresenter extends BaseListPresenter{
     }
 
     public void saveObject2Cache(MovieItem o) {
-        App.getDbHash().put(o._id,o);
+//        App.getDbHash().put(o._id,o);
     }
 
     public void saveObjects2Cache(List<MovieItem> olist) {
-        for (BaseEveHttpModel object:olist) {
-            App.getDbHash().put(object._id,object);
-        }
+//        for (BaseEveHttpModel object:olist) {
+//            App.getDbHash().put(object._id,object);
+//        }
     }
 }

@@ -10,7 +10,6 @@ import com.mozhuowen.rxandroid.model.EveListHttpModel;
 import com.mozhuowen.rxandroid.presenter.BaseEvePresenter;
 import com.mozhuowen.rxandroid.ui.LMRecyclerView;
 import com.mozhuowen.rxandroidframework.R;
-import com.mozhuowen.rxandroidframework.context.App;
 import com.mozhuowen.rxandroidframework.http.ARetrofitClient;
 import com.mozhuowen.rxandroidframework.model.entity.MovieItem;
 import com.mozhuowen.rxandroidframework.ui.activity.ViewCellEve;
@@ -95,7 +94,6 @@ public class SimpleEvePresenter extends BaseEvePresenter<TestEveView> {
                             public void call(BaseEveHttpModel data) {
                                 if (data._status.equals("OK")) {
                                     Toast.makeText(context, "新增成功", Toast.LENGTH_SHORT).show();
-                                    updateLocalStorage((MovieItem) data);
                                 }
                                 else
                                     Toast.makeText(context, "新增失败", Toast.LENGTH_SHORT).show();
@@ -120,7 +118,6 @@ public class SimpleEvePresenter extends BaseEvePresenter<TestEveView> {
                             Toast.makeText(context, "更新成功", Toast.LENGTH_SHORT).show();
                             //更新本地MODEL的ETAG
                             item.set_etag(data._etag);
-                            updateLocalStorage((MovieItem) item);
                         }else
                             Toast.makeText(context, "更新失败", Toast.LENGTH_SHORT).show();
                     }
@@ -147,7 +144,6 @@ public class SimpleEvePresenter extends BaseEvePresenter<TestEveView> {
                     @Override
                     public void call(MovieItem data) {
                         mView.onGetData(data);
-                        updateLocalStorage(data);
                     }
                 },new Action1<Throwable>() {
                     @Override
@@ -186,15 +182,15 @@ public class SimpleEvePresenter extends BaseEvePresenter<TestEveView> {
                 });
     }
 
-    public void updateLocalStorage(MovieItem item) {
-        App.getDbHash().put(item._id,item);
-    }
-
-    public void updateLocalstorage(List<MovieItem> items) {
-        for(BaseEveHttpModel object:items) {
-            App.getDbHash().put(object._id,object);
-        }
-    }
+//    public void updateLocalStorage(MovieItem item) {
+//        App.getDbHash().put(item._id,item);
+//    }
+//
+//    public void updateLocalstorage(List<MovieItem> items) {
+//        for(BaseEveHttpModel object:items) {
+//            App.getDbHash().put(object._id,object);
+//        }
+//    }
 
     public BaseEveHttpModel getItemFromLocalStorage(String etag) {
         return null;

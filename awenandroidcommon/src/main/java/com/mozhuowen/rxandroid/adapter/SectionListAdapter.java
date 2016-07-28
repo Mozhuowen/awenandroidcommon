@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.mozhuowen.R;
 import com.mozhuowen.widget.views.sectionrecyclerview.StickyRecyclerHeadersAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -21,13 +22,13 @@ import java.util.List;
  * E->listitem viewholder
  * W->headeritem viewholder
  */
-public abstract class SectionListAdapter<T,R,E extends BaseHolder,W extends BaseHolder>
+public abstract class SectionListAdapter<T,E extends BaseHolder,W extends BaseHolder>
         extends RecyclerView.Adapter<BaseHolder>
         implements StickyRecyclerHeadersAdapter<BaseHolder> {
 
-    private List<T> mDataSource = new ArrayList<>();
-    private List<R> mHeaderDataSource = new ArrayList<>();
-    private Context mContext;
+    protected List<T> mDataSource = new ArrayList<>();
+    protected List<R> mHeaderDataSource = new ArrayList<>();
+    protected Context mContext;
     private Class itemViewHolderClass;
     private Class headerViewHolderClass;
     private RecyclerView recyclerView;
@@ -36,13 +37,13 @@ public abstract class SectionListAdapter<T,R,E extends BaseHolder,W extends Base
 
     public SectionListAdapter(Context context,int itemLayoutResId,int headerLayoutResId,
                               List<T> itemdatesource,
-                              List<R> headerdatasource,
+//                              List<R> headerdatasource,
                               Class itemClass,
                               Class headerClass)
     {
         this.mContext = context;
         this.mDataSource = itemdatesource;
-        this.mHeaderDataSource = headerdatasource;
+//        this.mHeaderDataSource = headerdatasource;
         this.itemViewHolderClass = itemClass;
         this.headerViewHolderClass = headerClass;
         this.itemLayoutResId = itemLayoutResId;
@@ -66,11 +67,11 @@ public abstract class SectionListAdapter<T,R,E extends BaseHolder,W extends Base
         holder.bindData(data);
     }
 
-    @Override
-    public void onBindHeaderViewHolder(BaseHolder holder, int position) {
-        R data = mHeaderDataSource.get(position);
-        holder.bindData(data);
-    }
+//    @Override
+//    public void onBindHeaderViewHolder(BaseHolder holder, int position) {
+//        R data = mHeaderDataSource.get(position);
+//        holder.bindData(data);
+//    }
 
     @Override
     public long getItemId(int position) {
