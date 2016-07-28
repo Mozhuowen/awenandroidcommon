@@ -70,7 +70,6 @@ public class TestPresenter extends BaseListPresenter{
 //                            }
 //                        });
 //    }
-    @Override
     public void fetchData() {
         ARetrofitClient.getRetrofitInstance().getMovie(page,26)
                 .subscribeOn(Schedulers.io())
@@ -95,6 +94,7 @@ public class TestPresenter extends BaseListPresenter{
 //            page = currentHttpModel.getNextPage();
 //        else
 //            page = "1";
+
 
         ARetrofitClient.getRetrofitInstance().getMovie(++page,26)
                 .subscribeOn(Schedulers.io())

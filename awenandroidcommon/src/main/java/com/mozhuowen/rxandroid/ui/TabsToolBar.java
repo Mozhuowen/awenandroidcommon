@@ -34,8 +34,10 @@ public class TabsToolBar extends Toolbar {
         inflater.inflate(R.layout.mdl_toolbar_default, this, true);
 
         mToolbar = (android.support.v7.widget.Toolbar) getChildAt(0);
-        inflater.inflate(R.layout.actionbar_tabs, this, true);
+        inflater.inflate(R.layout.actionbar_tabs_left, this, true);
         pagerSlidingTabStrip = (PagerSlidingTabStrip) getChildAt(1);
+
+
     }
 
     public android.support.v7.widget.Toolbar getToolbar() {

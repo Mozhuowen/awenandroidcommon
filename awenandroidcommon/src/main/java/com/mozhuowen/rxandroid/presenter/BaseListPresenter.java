@@ -14,5 +14,5 @@ public abstract class BaseListPresenter extends BasePresenter<ListView> {
         super(context, iView);
     }
 
-    public abstract void fetchData();
+    public abstract void fetchNextPage();
 }

@@ -23,21 +23,24 @@ public class BaseEveHttpModel implements Serializable {
     private String nextPage;
     private String prePage = "1";
 
-    public static class Meta
+    public static class Meta implements Serializable
     {
+        public Meta(){}
         public int max_results;
         public int total;
         public int page;
     }
 
-    public static class Link
+    public static class Link implements Serializable
     {
+        public Link(){}
         public String href;
         public String title;
     }
 
-    public static class Links
+    public static class Links implements Serializable
     {
+        public Links(){}
         public Link self;
         public Link last;
         public Link parent;

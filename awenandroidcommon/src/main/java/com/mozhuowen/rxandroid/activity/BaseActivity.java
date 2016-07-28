@@ -104,7 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayShowHomeEnabled(true);
             else {
                 final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-                upArrow.setColorFilter(getResources().getColor(R.color.back_color), PorterDuff.Mode.SRC_ATOP);
+                upArrow.setColorFilter(getResources().getColor(R.color.backarrow_color), PorterDuff.Mode.SRC_ATOP);
                 getSupportActionBar().setHomeAsUpIndicator(upArrow);
             }
 
@@ -115,13 +115,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     public int getActionbarHeight() {
         TypedValue tv = new TypedValue();
         if (actionBarHeight == 0) {
-            if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            if (getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
                 actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
             }
         }
         return actionBarHeight;
     }
-    //Calculate ActionBar height
+    //Calculate satausbar height
     public int getStatusBarHeight() {
         if (statusbar_height == 0 ) {
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");

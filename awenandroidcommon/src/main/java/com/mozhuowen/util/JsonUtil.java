@@ -27,4 +27,8 @@ public class JsonUtil {
     public String JsontoString(Object o) {
         return gson.toJson(o);
     }
+
+    public <T> T stringToObject(String str,Class<T> clazOFT) {
+        return gson.fromJson(str,clazOFT);
+    }
 }

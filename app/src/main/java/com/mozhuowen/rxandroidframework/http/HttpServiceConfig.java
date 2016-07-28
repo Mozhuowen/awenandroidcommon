@@ -12,13 +12,13 @@ import java.util.Map;
 public class HttpServiceConfig extends ExtendInterceptor {
 
     @Override
-    public void setExtraParams() {
+    public Map<String,String> getExtraParams() {
         Map<String,String> params = new HashMap<>();
         params.put("user_id","0");
         params.put("version_code","3");
         params.put("api_version","2");
         params.put("platform","2");
 
-        this.extraParams = params;
+        return params;
     }
 }

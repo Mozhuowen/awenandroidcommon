@@ -109,7 +109,8 @@ public abstract class NavigationTabsActivity extends AAActivity
 
         mViewPagerTabs.setTabPaddingLeftRight(10);
         mViewPagerTabs.setTextColor(getTextColor());
-        mViewPagerTabs.setIndicatorColor(getResources().getColor(android.R.color.black));
+        mViewPagerTabs.setIndicatorHeight(10);
+        mViewPagerTabs.setIndicatorColor(getIndicatorColor());
         mViewPagerTabs.setDividerColor(android.R.color.transparent);
         mViewPagerTabs.setTextSize(getTabsTextPiexlSize());
         mViewPagerTabs.setShouldExpand(expandTabs());
@@ -137,4 +138,5 @@ public abstract class NavigationTabsActivity extends AAActivity
     protected abstract int getTextColor();
     protected abstract int getTabsTextPiexlSize();
     protected abstract int getTextSelectedColor();
+    protected abstract int getIndicatorColor();
 }

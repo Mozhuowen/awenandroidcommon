@@ -48,7 +48,6 @@ public interface ARetrofit
     @GET("/system/upgrade/")
     Observable<HttpResult> getUpgradeInfo();
 
-
     //testEve
     @GET("/movies")
     Observable<EveListHttpModel<MovieItem>> getMovie(@Query("page") int page,@Query("max_results") int maxresults);

@@ -17,6 +17,7 @@ public abstract class NormalActivity extends BaseActivity implements BaseView,Sw
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState,getLayoutResId());
+        initPresenter();
 
         ActionBar actionBar = getSupportActionBar();
         if (isActionbarVisible()) {
@@ -25,7 +26,6 @@ public abstract class NormalActivity extends BaseActivity implements BaseView,Sw
         } else
             actionBar.hide();
 
-        initPresenter();
     }
 
     @Override

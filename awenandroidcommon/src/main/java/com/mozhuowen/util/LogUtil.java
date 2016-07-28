@@ -20,6 +20,7 @@ import org.json.JSONObject;
  */
 public class LogUtil {
 
+    public static final String TAG = "awenawencommon";
     private static boolean IS_SHOW_LOG = true;
 
     private static final String DEFAULT_MESSAGE = "execute";

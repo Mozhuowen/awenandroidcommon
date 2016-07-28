@@ -17,7 +17,7 @@ public abstract class ExtendInterceptor implements Interceptor {
     protected Map<String,String> extraParams;
 
     @Override public Response intercept(Interceptor.Chain chain) throws IOException {
-        setExtraParams();
+        extraParams = getExtraParams();
 
         Request request = chain.request();
         HttpUrl originalHttpUrl = request.url();
@@ -30,6 +30,7 @@ public abstract class ExtendInterceptor implements Interceptor {
             HttpUrl newurl = newbuilder.build();
             Request.Builder requestBuilder = request.newBuilder()
                     .url(newurl)
+                    .headers(request.headers())
                     .method(request.method(), request.body());
             return chain.proceed(requestBuilder.build());
         } else
@@ -37,5 +38,5 @@ public abstract class ExtendInterceptor implements Interceptor {
 
     }
 
-    public abstract void setExtraParams();
+    public abstract Map<String,String> getExtraParams();
 }

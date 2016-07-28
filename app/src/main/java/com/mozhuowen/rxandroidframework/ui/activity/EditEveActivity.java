@@ -11,7 +11,6 @@ import com.mozhuowen.rxandroid.activity.NormalActivity;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandler;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandlerDefault;
 import com.mozhuowen.rxandroidframework.R;
-import com.mozhuowen.rxandroidframework.context.App;
 import com.mozhuowen.rxandroidframework.model.entity.MovieItem;
 import com.mozhuowen.rxandroidframework.presenter.SimpleEvePresenter;
 import com.mozhuowen.rxandroidframework.ui.iView.TestEveView;
@@ -102,7 +101,8 @@ public class EditEveActivity extends NormalActivity implements TestEveView {
             }
         });
 
-        MovieItem item = App.getDbHash().get(dataId);
+//        MovieItem item = App.getDbHash().get(dataId);
+        MovieItem item = null;
         if (item != null)
             onGetData(item);
         else

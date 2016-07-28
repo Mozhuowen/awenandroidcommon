@@ -19,6 +19,7 @@ public class ToolbarDefault extends Toolbar {
 
     protected LayoutInflater inflater;
     protected Context mContext;
+    protected View customview;
 
     public ToolbarDefault(Context context) {
         this(context, null);
@@ -44,14 +45,10 @@ public class ToolbarDefault extends Toolbar {
         // Calculate ActionBar height
         float actionBarHeight = 0;
         TypedValue tva = new TypedValue();
-        if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tva, true))
+        if (context.getTheme().resolveAttribute(R.attr.actionBarSize, tva, true))
         {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tva.data,getResources().getDisplayMetrics());
         }
-
-//        FrameLayout.LayoutParams lp2
-//                = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, actionBarHeight);
-//        this.setLayoutParams(lp2);
 
         if (getCustomView() != null) {
             View customview = getCustomView();
@@ -68,6 +65,11 @@ public class ToolbarDefault extends Toolbar {
         return mToolbar;
     }
 
-    protected View getCustomView(){ return null;}
+    protected View getCustomView(){
+        return null;
+    }
 
+    public void setCustomview(View view) {
+        customview = view;
+    }
 }

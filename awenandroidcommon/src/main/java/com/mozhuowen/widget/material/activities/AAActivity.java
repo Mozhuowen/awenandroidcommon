@@ -57,13 +57,13 @@ public abstract class AAActivity extends AActivity {
         setContentView(contentView);
 
         // Toolbar Shadow View
-        mShadowView = findViewById(R.id.toolbar_shadow);
-        if (mShadowView != null && (this instanceof ViewPagerWithTabsActivity)) {
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mShadowView
-                    .getLayoutParams();
-            params.topMargin = (int) getResources()
-                    .getDimension(R.dimen.mdl_viewpager_with_tabs_height);
-        }
+//        mShadowView = findViewById(R.id.toolbar_shadow);
+//        if (mShadowView != null && (this instanceof ViewPagerWithTabsActivity)) {
+//            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mShadowView
+//                    .getLayoutParams();
+//            params.topMargin = (int) getResources()
+//                    .getDimension(R.dimen.mdl_viewpager_with_tabs_height);
+//        }
         if (enableActionBarShadow()) {
             showActionBarShadow();
         }else {
@@ -94,7 +94,7 @@ public abstract class AAActivity extends AActivity {
         ViewGroup rootView = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content))
                 .getChildAt(0);
         if (this instanceof NavigationDrawerActivity) rootView.addView(mCustomToolbar, 1);
-        else rootView.addView(mCustomToolbar);
+        else rootView.addView(mCustomToolbar,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mCustomToolbar.getToolbar()
                 .setTitleTextColor(getResources().getColor(R.color.actionbar_titilecolor));

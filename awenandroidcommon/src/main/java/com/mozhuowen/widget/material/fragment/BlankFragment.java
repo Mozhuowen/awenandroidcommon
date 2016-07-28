@@ -18,6 +18,14 @@ public class BlankFragment extends Fragment
 {
     private Context mContext;
 
+    public static BlankFragment newInstance(String title) {
+        BlankFragment fragment = new BlankFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("content",title);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

@@ -12,7 +12,6 @@ import com.mozhuowen.rxandroid.ui.LMRecyclerView;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandler;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandlerDefault;
 import com.mozhuowen.rxandroidframework.R;
-import com.mozhuowen.rxandroidframework.context.App;
 import com.mozhuowen.rxandroidframework.presenter.TestPresenter;
 
 import java.util.List;
@@ -136,10 +135,10 @@ public class TestActivity extends BaseListActivity{
                 presenter.getAdapter().notifyMoreFinish(false);
         }
 
-        if (App.getDbHash() != null)
-            App.getDbHash().put("firstlist",datalist);
-        else
-            Toast.makeText(this,"DbHash is null!!",Toast.LENGTH_SHORT).show();
+//        if (App.getDbHash() != null)
+//            App.getDbHash().put("firstlist",datalist);
+//        else
+//            Toast.makeText(this,"DbHash is null!!",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -164,12 +163,12 @@ public class TestActivity extends BaseListActivity{
         recyclerView.setLayoutManager(mLayoutManager);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
-
-        if (App.getDbHash() != null) {
-            List datalist = App.getDbHash().get("firstlist");
-            if (datalist != null && datalist.size() > 0)
-                showCacheList(datalist);
-        }
+//
+//        if (App.getDbHash() != null) {
+//            List datalist = App.getDbHash().get("firstlist");
+//            if (datalist != null && datalist.size() > 0)
+//                showCacheList(datalist);
+//        }
 //        recyclerView.addItemDecoration(new LMRecyclerView.DividerItemDecoration(this,LMRecyclerView.DividerItemDecoration.VERTICAL_LIST));
     }
 

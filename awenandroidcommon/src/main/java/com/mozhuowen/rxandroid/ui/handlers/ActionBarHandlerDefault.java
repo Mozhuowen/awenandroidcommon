@@ -7,12 +7,15 @@ import com.mozhuowen.rxandroid.ui.ToolbarDefault;
 
 public class ActionBarHandlerDefault extends ActionBarHandler
 {
+    ToolbarDefault toolbar;
+
     public ActionBarHandlerDefault(Context context) {
         super(context);
     }
 
     @Override
     public Toolbar build() {
-        return new ToolbarDefault(mContext);
+        toolbar = new ToolbarDefault(mContext);
+        return toolbar;
     }
 }

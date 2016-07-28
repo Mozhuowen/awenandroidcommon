@@ -72,6 +72,15 @@
 
         </activity>
 
+        <activity android:name=".ui.activity.TestNavigationTab"
+            android:label="SimpleTextActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+
+
+        </activity>
+
     </application>
 
 </manifest>

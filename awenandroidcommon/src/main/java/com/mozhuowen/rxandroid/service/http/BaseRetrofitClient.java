@@ -3,8 +3,10 @@ package com.mozhuowen.rxandroid.service.http;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -19,7 +21,6 @@ public abstract class BaseRetrofitClient<T>
     protected static Retrofit retrofit;
 
     private T baseRetrofit;
-    protected ExtendInterceptor extendInterceptor;
 
     private void init(boolean ifLogging) {
         Gson gson = new GsonBuilder()
@@ -28,11 +29,8 @@ public abstract class BaseRetrofitClient<T>
 
         //手动创建一个OkHttpClient并设置超时和重试
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        httpClientBuilder.connectTimeout(10, TimeUnit.SECONDS);
+        httpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
         httpClientBuilder.retryOnConnectionFailure(true);
-
-        if (extendInterceptor != null)
-            httpClientBuilder.addInterceptor(extendInterceptor);
 
         if (ifLogging) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -40,6 +38,14 @@ public abstract class BaseRetrofitClient<T>
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             httpClientBuilder.addInterceptor(logging);
+        }
+
+        if (getExtendInterceptor() != null && getExtendInterceptor().size() > 0) {
+
+            for (Interceptor interceptor:getExtendInterceptor()) {
+                httpClientBuilder.addInterceptor(interceptor);
+            }
+
         }
 
         retrofit = new Retrofit.Builder()
@@ -55,7 +61,6 @@ public abstract class BaseRetrofitClient<T>
             if (baseRetrofit == null ){
                 HOST = "http://"+domain;
                 BASEURL = HOST + basePath;
-                setExtendInterceptor();
                 init(ifLogging);
                 baseRetrofit = (T)retrofit.create(retrofitclass);
             }
@@ -63,6 +68,6 @@ public abstract class BaseRetrofitClient<T>
         }
     }
 
-    protected abstract void setExtendInterceptor();
+    protected abstract List<Interceptor> getExtendInterceptor();
 
 }
