@@ -11,6 +11,8 @@ import java.io.Serializable;
 public class BaseHttpModel<T> implements Serializable {
     public int status;
     public String message;
+    public String errorCode;
+    public String errorMsg;
 
     public T data;
 
@@ -40,5 +42,21 @@ public class BaseHttpModel<T> implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 }

@@ -32,20 +32,20 @@ public abstract class BaseRetrofitClient<T>
         httpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
         httpClientBuilder.retryOnConnectionFailure(true);
 
-        if (ifLogging) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            // set your desired log level
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-            httpClientBuilder.addInterceptor(logging);
-        }
-
         if (getExtendInterceptor() != null && getExtendInterceptor().size() > 0) {
 
             for (Interceptor interceptor:getExtendInterceptor()) {
                 httpClientBuilder.addInterceptor(interceptor);
             }
 
+        }
+
+        if (ifLogging) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            // set your desired log level
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            httpClientBuilder.addInterceptor(logging);
         }
 
         retrofit = new Retrofit.Builder()

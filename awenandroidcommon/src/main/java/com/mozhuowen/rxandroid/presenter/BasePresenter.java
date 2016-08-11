@@ -26,4 +26,5 @@ public abstract class BasePresenter<T extends BaseView>  {
     }
 
     public abstract void release();
+
 }

@@ -2,9 +2,10 @@ package com.mozhuowen.rxandroid.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mozhuowen.rxandroid.model.ViewPagerItem;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by Awen on 16/6/20.
  * Email:mozhuowen@gmail.com
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<ViewPagerItem> mViewPagerItems;
 
@@ -34,6 +35,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        Logger.d("Got fragment position->"+position);
         return mViewPagerItems.get(position).getFragment();
     }
 

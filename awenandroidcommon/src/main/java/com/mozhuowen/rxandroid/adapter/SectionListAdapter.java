@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.mozhuowen.R;
+import com.mozhuowen.rxandroid.CommonListener;
 import com.mozhuowen.widget.views.sectionrecyclerview.StickyRecyclerHeadersAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -29,11 +30,11 @@ public abstract class SectionListAdapter<T,E extends BaseHolder,W extends BaseHo
     protected List<T> mDataSource = new ArrayList<>();
     protected List<R> mHeaderDataSource = new ArrayList<>();
     protected Context mContext;
-    private Class itemViewHolderClass;
-    private Class headerViewHolderClass;
+    protected Class itemViewHolderClass;
+    protected Class headerViewHolderClass;
     private RecyclerView recyclerView;
-    private int itemLayoutResId;
-    private int headerLayoutResId;
+    protected int itemLayoutResId;
+    protected int headerLayoutResId;
 
     public SectionListAdapter(Context context,int itemLayoutResId,int headerLayoutResId,
                               List<T> itemdatesource,
@@ -58,7 +59,7 @@ public abstract class SectionListAdapter<T,E extends BaseHolder,W extends BaseHo
     @Override
     public BaseHolder onCreateHeaderViewHolder(ViewGroup parent) {
 
-        return (W)newTclass(headerViewHolderClass,itemLayoutResId,parent,0);
+        return (W)newTclass(headerViewHolderClass,headerLayoutResId,parent,0);
     }
 
     @Override
@@ -83,10 +84,10 @@ public abstract class SectionListAdapter<T,E extends BaseHolder,W extends BaseHo
         return mDataSource.size();
     }
 
-    private T newTclass(Class<T> clazz,int layoutResId,ViewGroup parentView,int viewType){
+    protected Object newTclass(Class<T> clazz,int layoutResId,ViewGroup parentView,int viewType){
         try {
             Constructor<?> cons[] = clazz.getConstructors();
-            return (T)cons[0].newInstance(mContext,layoutResId,parentView,viewType);
+            return cons[0].newInstance(mContext,layoutResId,parentView,viewType);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -96,5 +97,24 @@ public abstract class SectionListAdapter<T,E extends BaseHolder,W extends BaseHo
         }
         Logger.e("returning null!");
         return null;
+    }
+
+    protected Object newTclass(Class<T> clazz, int layoutResId, ViewGroup parentView, int viewType, CommonListener listener){
+        try {
+            Constructor<?> cons[] = clazz.getConstructors();
+            return cons[0].newInstance(mContext,layoutResId,parentView,viewType,listener);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        Logger.e("returning null!");
+        return null;
+    }
+
+    public List<T> getDataSource() {
+        return mDataSource;
     }
 }

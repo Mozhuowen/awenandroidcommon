@@ -44,6 +44,9 @@ public abstract class AddExtraDataInterceptor implements Interceptor {
                 newRequestBuilder.header(entry.getKey(),entry.getValue());
             }
 
+        } else {
+            newRequestBuilder
+                    .url(newUrlBuilder.build());
         }
 
         if (needNewRequest)

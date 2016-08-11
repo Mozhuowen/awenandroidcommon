@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static int statusbar_height;
     private static int actionBarHeight;
 
-    private Toolbar mCustomToolbar;
+    protected Toolbar mCustomToolbar;
     private View mShadowView;
     private View mCustomSearchButton;
     private ActionBarHandler mActionBarHandler;
@@ -146,6 +147,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void hideActionBarShadow() {
         if (mShadowView != null) mShadowView.setVisibility(View.GONE);
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
+
+    public int pxToDp(int px) {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
     }
 
 
