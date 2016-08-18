@@ -9,8 +9,10 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import com.mozhuowen.R;
 import com.mozhuowen.widget.views.bottomnavigation.listener.OnTabItemSelectListener;
 
 
@@ -60,6 +62,14 @@ public class PagerBottomTabLayout extends FrameLayout implements TabStripLinsten
     {
         mPagerBottomTabStrip = new PagerBottomTabStrip(mContext);
         PagerBottomTabLayout.this.addView(mPagerBottomTabStrip);
+
+        //加一条区分线
+        View view = new View(mContext);
+        view.setBackgroundResource(R.color.default_gray);
+        LayoutParams lpv = new LayoutParams
+                (LayoutParams.MATCH_PARENT, 2);
+        view.setLayoutParams(lpv);
+        PagerBottomTabLayout.this.addView(view);
 
         LayoutParams lp = new LayoutParams
                 (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);

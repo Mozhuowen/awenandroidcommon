@@ -8,6 +8,7 @@ import java.util.List;
  */
 public interface ListView<T> extends BaseView {
 
+    void refreshList();
     void showLoadingView();
     void showErrorView();
     void showRefreshProgress();

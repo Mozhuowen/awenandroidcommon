@@ -6,8 +6,11 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
+import com.mozhuowen.R;
 import com.mozhuowen.rxandroid.presenter.BasePresenter;
+import com.orhanobut.logger.Logger;
 
 import butterknife.ButterKnife;
 
@@ -17,11 +20,22 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
+    protected static int statusbar_height;
     protected T presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutResId(), container, false);
+
+        if (enableLayoutFullScreen()) {
+            View mainContent = view.findViewById(R.id.main_content);
+            FrameLayout.LayoutParams params =
+                    new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT /***+ getStatusBarHeight()*/);
+            params.setMargins(0,getStatusBarHeight(),0,0);
+            mainContent.setLayoutParams(params);
+        }
+
         initCreateView(view);
         initPresenter();
         return view;
@@ -52,5 +66,21 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
+    }
+
+    public boolean enableLayoutFullScreen() {
+        return false;
+    }
+
+    //Calculate satausbar height
+    public int getStatusBarHeight() {
+        if (statusbar_height == 0 ) {
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                statusbar_height = getResources().getDimensionPixelSize(resourceId);
+            }
+        }
+        Logger.d("Got statusbar_height size->"+statusbar_height);
+        return statusbar_height;
     }
 }

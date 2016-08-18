@@ -30,7 +30,14 @@ public abstract class ToolBarFragment extends BaseFragment  {
             } else
                 mCustomToolbar = mActionBarHandler.build();
 
-            view.addView(mCustomToolbar, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            if (enableLayoutFullScreen()) {
+                FrameLayout.LayoutParams params =
+                        new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                                FrameLayout.LayoutParams.WRAP_CONTENT /***+ getStatusBarHeight()*/);
+                params.setMargins(0,getStatusBarHeight(),0,0);
+                view.addView(mCustomToolbar, params);
+            } else
+                view.addView(mCustomToolbar, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             mCustomToolbar.getToolbar().setTitle(getTitle());
         }
 

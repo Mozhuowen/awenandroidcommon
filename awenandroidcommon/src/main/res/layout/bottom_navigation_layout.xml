@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <com.mozhuowen.widget.views.bottomnavigation.PagerBottomTabLayout
-        android:id="@+id/bottomnavigation"
-        app:elevation="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_above="@id/bottomnavigation"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
+
+        <com.mozhuowen.widget.views.bottomnavigation.PagerBottomTabLayout
+            android:id="@+id/bottomnavigation"
+            app:elevation="8dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_above="@id/bottomnavigation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</RelativeLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+</FrameLayout>
+</merge>

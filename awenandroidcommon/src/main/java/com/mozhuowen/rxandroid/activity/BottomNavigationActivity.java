@@ -88,6 +88,11 @@ public abstract class BottomNavigationActivity extends NormalActivity {
 
     }
 
+    public void notifyFragmentsChange() {
+        bnAdapter.setFragments(getFragmentHandle().getFragmentList());
+        bnAdapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt("position",currSelectedPos);

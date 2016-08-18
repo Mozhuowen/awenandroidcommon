@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.ViewGroup;
 
+import com.mozhuowen.rxandroid.CommonListener;
 import com.mozhuowen.rxandroid.ui.LMRecyclerView;
 import com.mozhuowen.util.LogUtil;
+import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -19,22 +21,22 @@ import java.util.List;
  */
 public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapter<BaseHolder> {
     //ITEM类型
-    private static final int TYPE_HEADER = 2;
-    private static final int TYPE_FOOTER = 3;
-    private static final int TYPE_LIST = 4;
-    private ListLoadType loadType = ListLoadType.AUTO_LOAD;
-    private boolean enableHeader = false;
-    private boolean enableFooter = false;
-    private boolean isLoadingMore = false;
-    private LMRecyclerView.LoadMoreListener loadMoreListener;
-    private int mLoastLoadMorePosition;
+    protected static final int TYPE_HEADER = 2;
+    protected static final int TYPE_FOOTER = 3;
+    protected static final int TYPE_LIST = 4;
+    protected ListLoadType loadType = ListLoadType.AUTO_LOAD;
+    protected boolean enableHeader = false;
+    protected boolean enableFooter = false;
+    protected boolean isLoadingMore = false;
+    protected LMRecyclerView.LoadMoreListener loadMoreListener;
+    protected int mLoastLoadMorePosition;
 
-    private int mLayoutResId;
-    private List<R> mDataSource = new ArrayList<>();
-    private Context mContext;
-    private Class viewHolderClass;   //ViewHolder类
-    private BaseHolder headerView;  //header
-    private RecyclerView recyclerView;
+    protected int mLayoutResId;
+    protected List<R> mDataSource = new ArrayList<>();
+    protected Context mContext;
+    protected Class viewHolderClass;   //ViewHolder类
+    protected BaseHolder headerView;  //header
+    protected RecyclerView recyclerView;
 
     public BaseListAdapter(Context context,int layoutResId, List<R> dataSource,Class viewHolderClass) {
         this.mLayoutResId = layoutResId;
@@ -59,7 +61,7 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
         } else if (viewType == TYPE_HEADER)
             return headerView;
         else
-            return (T)newTclass(viewHolderClass,mLayoutResId,parent,viewType);
+            return (BaseHolder) newTclass(viewHolderClass,mLayoutResId,parent,viewType);
     }
 
     @Override
@@ -89,10 +91,11 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
         }
     }
 
-    private T newTclass(Class<T> clazz,int layoutResId,ViewGroup parentView,int viewType){
+    private Object newTclass(Class<T> clazz,int layoutResId,ViewGroup parentView,int viewType){
+        Logger.d(""+clazz.getSimpleName()+" "+clazz.getName());
         try {
             Constructor<?> cons[] = clazz.getConstructors();
-            return (T)cons[0].newInstance(mContext,layoutResId,parentView,viewType);
+            return cons[0].newInstance(mContext,layoutResId,parentView,viewType);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -101,6 +104,21 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
             e.printStackTrace();
         }
         LogUtil.d("returning null!");
+        return null;
+    }
+
+    protected Object newTclass(Class<T> clazz, int layoutResId, ViewGroup parentView, int viewType, CommonListener listener){
+        try {
+            Constructor<?> cons[] = clazz.getConstructors();
+            return cons[0].newInstance(mContext,layoutResId,parentView,viewType,listener);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        Logger.e("returning null!");
         return null;
     }
 

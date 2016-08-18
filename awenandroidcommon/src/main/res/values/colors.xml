@@ -8,4 +8,6 @@
     <color name="button_default">#2196f3</color>
     <color name="backarrow_color">@android:color/black</color>
     <color name="mis_actionbar_color">#21282C</color>
+    <color name="sectionlist_header_color">#F2F2F4</color>
+    <color name="default_gray">#F2F2F4</color>
 </resources>

@@ -58,7 +58,7 @@ public abstract class SectionListAdapter<T,E extends BaseHolder,W extends BaseHo
 
     @Override
     public BaseHolder onCreateHeaderViewHolder(ViewGroup parent) {
-
+//        Logger.d("onCreateHeaderViewHolder");
         return (W)newTclass(headerViewHolderClass,headerLayoutResId,parent,0);
     }
 

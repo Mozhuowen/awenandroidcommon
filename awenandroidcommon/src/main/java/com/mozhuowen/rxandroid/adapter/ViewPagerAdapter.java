@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mozhuowen.rxandroid.model.ViewPagerItem;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Logger.d("Got fragment position->"+position);
+//        Logger.d("Got fragment position->"+position);
         return mViewPagerItems.get(position).getFragment();
     }
 

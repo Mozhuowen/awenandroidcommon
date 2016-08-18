@@ -17,7 +17,6 @@ import com.mozhuowen.rxandroid.ui.Toolbar;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandler;
 import com.mozhuowen.rxandroid.ui.handlers.TabsActionBarHandler;
 import com.mozhuowen.rxandroid.ui.handlers.ViewPagerHandler;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -41,7 +40,14 @@ public abstract class NavigationTabsFragment extends BaseFragment implements com
         ViewGroup view = (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
         mActionBarHandler = getActionBarHandler();
         mCustomToolbar = mActionBarHandler.build();
-        view.addView(mCustomToolbar, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        if (enableLayoutFullScreen()) {
+            FrameLayout.LayoutParams params =
+                    new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.WRAP_CONTENT /***+ getStatusBarHeight()*/);
+            params.setMargins(0,getStatusBarHeight(),0,0);
+            view.addView(mCustomToolbar, params);
+        } else
+            view.addView(mCustomToolbar, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mCustomToolbar.getToolbar().setTitle(getTitle());
         mCustomToolbar.getToolbar().setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
@@ -120,7 +126,7 @@ public abstract class NavigationTabsFragment extends BaseFragment implements com
 
     @Override
     public void selectPage(int position) {
-        Logger.d("select page "+position);
+//        Logger.d("select page "+position);
         mViewPager.setCurrentItem(position);
     }
 
