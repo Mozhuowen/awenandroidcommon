@@ -98,6 +98,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                         WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
+        //android4.1 bugfix
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
+            mCustomToolbar.getToolbar().setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }
+
         setSupportActionBar(mCustomToolbar.getToolbar());
         if (getSupportActionBar() != null) {
 

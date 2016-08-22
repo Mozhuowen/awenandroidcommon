@@ -1,11 +1,13 @@
 package com.mozhuowen.rxandroid.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.mozhuowen.R;
 import com.mozhuowen.rxandroid.ui.Toolbar;
 import com.mozhuowen.rxandroid.ui.ToolbarDefault;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandler;
@@ -38,6 +40,11 @@ public abstract class ToolBarFragment extends BaseFragment  {
                 view.addView(mCustomToolbar, params);
             } else
                 view.addView(mCustomToolbar, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            //android4.1 bugfix
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN) {
+                mCustomToolbar.getToolbar().setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            }
             mCustomToolbar.getToolbar().setTitle(getTitle());
         }
 

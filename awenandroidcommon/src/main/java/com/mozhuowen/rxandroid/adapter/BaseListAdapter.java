@@ -142,7 +142,9 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
     }
 
     public void notifyRefreshFinish() {
-        setAutoLoadMoreEnable(true);
+        if (loadType == ListLoadType.AUTO_LOAD)
+            setAutoLoadMoreEnable(true);
+
         isLoadingMore = false;
         notifyDataSetChanged();
     }
