@@ -83,6 +83,11 @@ public class TestActivity extends BaseListActivity{
     }
 
     @Override
+    public void refreshList() {
+
+    }
+
+    @Override
     public void showLoadingView() {
         error_view.setVisibility(View.GONE);
         full_progressbar.setVisibility(View.VISIBLE);

@@ -1,22 +1,19 @@
 package com.mozhuowen.rxandroid.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import com.astuetz.PagerSlidingTabStrip;
 import com.mozhuowen.R;
 import com.mozhuowen.rxandroid.adapter.ViewPagerAdapter;
 import com.mozhuowen.rxandroid.model.ViewPagerItem;
 import com.mozhuowen.rxandroid.ui.Toolbar;
 import com.mozhuowen.rxandroid.ui.handlers.ActionBarHandler;
-import com.mozhuowen.rxandroid.ui.handlers.TabsActionBarHandler;
 import com.mozhuowen.rxandroid.ui.handlers.ViewPagerHandler;
+import com.mozhuowen.widget.views.smarttablayout.SmartTabLayout;
 
 import java.util.List;
 
@@ -30,7 +27,8 @@ public abstract class NavigationTabsFragment extends BaseFragment implements com
     private Toolbar mCustomToolbar;
 
     protected ViewPager mViewPager;
-    protected PagerSlidingTabStrip mViewPagerTabs;
+//    protected PagerSlidingTabStrip mViewPagerTabs;
+    protected SmartTabLayout mTabs;
     private List<ViewPagerItem> mViewPagerItems;
     private ViewPager.OnPageChangeListener mUserOnPageChangeListener;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -75,43 +73,47 @@ public abstract class NavigationTabsFragment extends BaseFragment implements com
     }
 
     private void showTabs(ViewPager pager) {
-        setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                for (int i = 0; i < ((ViewGroup) mViewPagerTabs.getChildAt(0)).getChildCount(); i++) {
-                    ((TextView) ((ViewGroup) mViewPagerTabs.getChildAt(0)).getChildAt(i)).setTextColor(getTextColor());
-                }
-                ((TextView) ((ViewGroup) mViewPagerTabs.getChildAt(0)).getChildAt(position)).setTextColor(getTextSelectedColor());
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        mViewPagerTabs.setTabPaddingLeftRight(10);
-        mViewPagerTabs.setTextColor(getTextColor());
-        mViewPagerTabs.setIndicatorHeight(5);
-        mViewPagerTabs.setIndicatorColor(getIndicatorColor());
-        mViewPagerTabs.setDividerColor(android.R.color.transparent);
-        mViewPagerTabs.setTextSize(getTabsTextPiexlSize());
-        mViewPagerTabs.setShouldExpand(expandTabs());
-        mViewPagerTabs.setViewPager(pager);
-        mViewPagerTabs.setTabPaddingLeftRight(0);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mViewPagerTabs.setTabBackground(android.R.attr.selectableItemBackground);
-        }
-
-        //设置TAB字体颜色的变化
-        mViewPagerTabs.setOnPageChangeListener(mUserOnPageChangeListener);
-        ((TextView)((ViewGroup) mViewPagerTabs.getChildAt(0)).getChildAt(0)).setTextColor(getTextSelectedColor());
+        mTabs.setViewPager(pager);
     }
+
+//    private void showTabs(ViewPager pager) {
+//        setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                for (int i = 0; i < ((ViewGroup) mViewPagerTabs.getChildAt(0)).getChildCount(); i++) {
+//                    ((TextView) ((ViewGroup) mViewPagerTabs.getChildAt(0)).getChildAt(i)).setTextColor(getTextColor());
+//                }
+//                ((TextView) ((ViewGroup) mViewPagerTabs.getChildAt(0)).getChildAt(position)).setTextColor(getTextSelectedColor());
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+//
+//        mViewPagerTabs.setTabPaddingLeftRight(10);
+//        mViewPagerTabs.setTextColor(getTextColor());
+//        mViewPagerTabs.setIndicatorHeight(5);
+//        mViewPagerTabs.setIndicatorColor(getIndicatorColor());
+//        mViewPagerTabs.setDividerColor(android.R.color.transparent);
+//        mViewPagerTabs.setTextSize(getTabsTextPiexlSize());
+//        mViewPagerTabs.setShouldExpand(expandTabs());
+//        mViewPagerTabs.setViewPager(pager);
+//        mViewPagerTabs.setTabPaddingLeftRight(0);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            mViewPagerTabs.setTabBackground(android.R.attr.selectableItemBackground);
+//        }
+//
+//        //设置TAB字体颜色的变化
+//        mViewPagerTabs.setOnPageChangeListener(mUserOnPageChangeListener);
+//        ((TextView)((ViewGroup) mViewPagerTabs.getChildAt(0)).getChildAt(0)).setTextColor(getTextSelectedColor());
+//    }
 
     @Override
     public void setOnPageChangeListener(ViewPager.OnPageChangeListener userOnPageChangeListener) {
@@ -130,12 +132,6 @@ public abstract class NavigationTabsFragment extends BaseFragment implements com
         mViewPager.setCurrentItem(position);
     }
 
-    protected ActionBarHandler getActionBarHandler(){
-        TabsActionBarHandler tabsActionBarHandler = new TabsActionBarHandler(getActivity());
-        mViewPagerTabs = tabsActionBarHandler.getPagerSlidingTabStrip();
-        return tabsActionBarHandler;
-    }
-
     protected int getLayoutResId() {
         return R.layout.awen_navigationtabs_withmargintop2;
     }
@@ -147,4 +143,5 @@ public abstract class NavigationTabsFragment extends BaseFragment implements com
     protected abstract int getTabsTextPiexlSize();
     protected abstract int getTextSelectedColor();
     protected abstract int getIndicatorColor();
+    protected abstract ActionBarHandler getActionBarHandler();
 }

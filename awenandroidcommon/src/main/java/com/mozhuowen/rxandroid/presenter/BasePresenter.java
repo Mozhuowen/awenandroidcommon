@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.mozhuowen.rxandroid.ui.BaseView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rx.Subscription;
 
 /**
@@ -12,7 +15,7 @@ import rx.Subscription;
  */
 public abstract class BasePresenter<T extends BaseView>  {
 
-    protected Subscription subscription;
+    protected List<Subscription> subscriptions = new ArrayList<>();
     protected Context context;
     protected T mView;
 
@@ -25,6 +28,17 @@ public abstract class BasePresenter<T extends BaseView>  {
         mView.initViews();
     }
 
-    public abstract void release();
+    public void release() {
+        if (subscriptions != null && subscriptions.size() > 0) {
+            for (Subscription s:subscriptions) {
+                s.unsubscribe();
+            }
+        }
+    }
 
+    //方便释放回收
+    public void addSubscription(Subscription subscription)
+    {
+        subscriptions.add(subscription);
+    }
 }

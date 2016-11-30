@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseRetrofitClient<T>
 {
+    private static int TIME_OUT = 30;
     private static String HOST;
     private static String BASEURL;
     private static final Object monitor = new Object();
@@ -29,7 +30,8 @@ public abstract class BaseRetrofitClient<T>
 
         //手动创建一个OkHttpClient并设置超时和重试
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        httpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
+        httpClientBuilder.readTimeout(TIME_OUT, TimeUnit.SECONDS);
+        httpClientBuilder.connectTimeout(TIME_OUT, TimeUnit.SECONDS);
         httpClientBuilder.retryOnConnectionFailure(true);
 
         if (getExtendInterceptor() != null && getExtendInterceptor().size() > 0) {
@@ -56,12 +58,16 @@ public abstract class BaseRetrofitClient<T>
                 .build();
     }
 
-    public T getBaseClient(String domain,String basePath,Class retrofitclass,boolean ifLogging) {
+    public static void updateTimeOut (int timeout) {
+        TIME_OUT = timeout;
+    }
+
+    public T getBaseClient (String domain,String basePath,Class retrofitclass,boolean ifLogging) {
         synchronized (monitor) {
-            if (baseRetrofit == null ){
+            if ( baseRetrofit == null ) {
                 HOST = "http://"+domain;
                 BASEURL = HOST + basePath;
-                init(ifLogging);
+                init( ifLogging );
                 baseRetrofit = (T)retrofit.create(retrofitclass);
             }
             return baseRetrofit;

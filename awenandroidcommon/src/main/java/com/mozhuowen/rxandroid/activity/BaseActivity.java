@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 import com.mozhuowen.R;
 import com.mozhuowen.rxandroid.ui.Toolbar;
@@ -70,10 +71,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ViewGroup rootView = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content))
                 .getChildAt(0);
-        rootView.addView(mCustomToolbar,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        if (rootView instanceof ScrollView)
+            ((ViewGroup)rootView.getChildAt(0)).addView(mCustomToolbar,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        else
+            rootView.addView(mCustomToolbar,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mCustomToolbar.getToolbar()
                 .setTitleTextColor(getResources().getColor(R.color.actionbar_titilecolor));
+        if (getTitleStyleRes() > 0) {
+            mCustomToolbar.getToolbar().setTitleTextAppearance(this, getTitleStyleRes());
+        } else
+            mCustomToolbar.getToolbar().setTitleTextAppearance(this, R.style.ActionBarTitleStyle);
 
         if (enableLayoutFullScreen()) {
             View view = this.findViewById(android.R.id.content);
@@ -164,6 +172,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
+    }
+
+    public int getTitleStyleRes() {
+        return 0;
     }
 
 

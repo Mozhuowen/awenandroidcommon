@@ -12,11 +12,19 @@ import butterknife.ButterKnife;
  */
 public abstract class NormalNoViewActivity extends BaseActivity {
 
+    private Bundle dataBundle;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState,getLayoutResId());
         ButterKnife.bind(this);
-        initPresenter();
+
+        if ( savedInstanceState != null )
+            dataBundle = savedInstanceState.getBundle("bundle");
+        else{
+            dataBundle = getIntent().getExtras();
+        }
+        initPresenter(dataBundle);
 
         ActionBar actionBar = getSupportActionBar();
         if (isActionbarVisible()) {
@@ -38,9 +46,18 @@ public abstract class NormalNoViewActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (dataBundle != null) {
+            outState.putBundle("bundle",dataBundle);
+        }
+
+        super.onSaveInstanceState(outState);
+    }
+
     public abstract String getTitleString();
     protected abstract int getLayoutResId();
-    protected abstract void initPresenter();
+    protected abstract void initPresenter(Bundle savedInstanceState);
     public abstract boolean isActionbarVisible();
     public abstract boolean isDisplayHomeAsUpEnabled();
 

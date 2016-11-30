@@ -127,6 +127,11 @@ public class EditEveActivity extends NormalActivity implements TestEveView {
     }
 
     @Override
+    public void refreshList() {
+
+    }
+
+    @Override
     public void showLoadingView() {
 
     }

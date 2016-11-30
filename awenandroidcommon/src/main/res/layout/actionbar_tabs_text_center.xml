@@ -1,0 +1,15 @@
+<com.mozhuowen.widget.views.smarttablayout.SmartTabLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewpagertab"
+    android:layout_width="wrap_content"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_gravity="center"
+    app:stl_indicatorWithoutPadding="true"
+    app:stl_customTabTextLayoutId="@layout/actionbar_tabs_text_item"
+    app:stl_customTabTextViewId="@+id/tab_text"
+    app:stl_indicatorColor="@android:color/black"
+    app:stl_indicatorInterpolation="linear"
+    app:stl_indicatorThickness="3dp"
+    app:stl_underlineThickness="0dp"
+    app:stl_dividerThickness="0dp"/>

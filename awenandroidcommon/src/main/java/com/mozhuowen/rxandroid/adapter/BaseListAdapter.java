@@ -92,7 +92,7 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
     }
 
     private Object newTclass(Class<T> clazz,int layoutResId,ViewGroup parentView,int viewType){
-        Logger.d(""+clazz.getSimpleName()+" "+clazz.getName());
+//        Logger.d(""+clazz.getSimpleName()+" "+clazz.getName());
         try {
             Constructor<?> cons[] = clazz.getConstructors();
             return cons[0].newInstance(mContext,layoutResId,parentView,viewType);
@@ -204,5 +204,26 @@ public class BaseListAdapter<T extends BaseHolder,R> extends RecyclerView.Adapte
 
     public void setLoastLoadMorePosition(int mLoastLoadMorePosition) {
         this.mLoastLoadMorePosition = mLoastLoadMorePosition;
+    }
+
+    public void refreshList(List<R> datalist) {
+        //防止出现loadingview
+        setAutoLoadMoreEnable(false);
+
+        this.mDataSource.clear();
+        this.mDataSource.addAll(datalist);
+        if (datalist.size() < 5) {
+            this.notifyDataSetChanged();
+        }else
+            this.notifyRefreshFinish();
+
+    }
+
+    public void loadMoreList(List<R> datalist) {
+        this.mDataSource.addAll(datalist);
+        if (datalist.size() > 0)
+            this.notifyMoreFinish(true);
+        else
+            this.notifyMoreFinish(false);
     }
 }

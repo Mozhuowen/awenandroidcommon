@@ -31,7 +31,7 @@ dependencies {
     compile('net.datafans:android-common-lib:1.2.84') {
         exclude group: 'com.google.android', module: 'support-v4'
     }
-    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+//    compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.commit451:PhotoView:1.2.4'
     compile files('src/main/libs/universal-image-loader-1.9.4.jar')
     compile 'com.commit451:PhotoView:1.2.4'
@@ -64,5 +64,7 @@ dependencies {
     //icon-lib
     compile "com.mikepenz:iconics-core:2.7.2@aar"
     compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.2@aar'
+    //rxbus
+    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
 }
 

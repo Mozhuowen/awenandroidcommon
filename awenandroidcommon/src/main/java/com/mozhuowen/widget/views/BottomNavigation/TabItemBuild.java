@@ -73,4 +73,5 @@ public interface TabItemBuild
      */
     TabItemBuild setTag(@NotNull Object object);
 
+    TabItemBuild setUseOldType(@NotNull boolean yes);
 }

@@ -10,7 +10,6 @@ import android.widget.FrameLayout;
 
 import com.mozhuowen.R;
 import com.mozhuowen.rxandroid.presenter.BasePresenter;
-import com.orhanobut.logger.Logger;
 
 import butterknife.ButterKnife;
 
@@ -80,7 +79,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
                 statusbar_height = getResources().getDimensionPixelSize(resourceId);
             }
         }
-        Logger.d("Got statusbar_height size->"+statusbar_height);
+//        Logger.d("Got statusbar_height size->"+statusbar_height);
         return statusbar_height;
     }
 }

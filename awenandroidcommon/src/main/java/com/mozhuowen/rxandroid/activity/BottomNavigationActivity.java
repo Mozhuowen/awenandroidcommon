@@ -51,7 +51,7 @@ public abstract class BottomNavigationActivity extends NormalActivity {
 
         bnAdapter = new BNAdapter(getSupportFragmentManager(),this);
         bnAdapter.setFragments(getFragmentHandle().getFragmentList());
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(bnAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -77,6 +77,7 @@ public abstract class BottomNavigationActivity extends NormalActivity {
             public void onSelected(int index, Object tag) {
                 currSelectedPos = index;
                 viewPager.setCurrentItem(index,false);
+                onTabSelected(index);
             }
 
             @Override
@@ -91,6 +92,8 @@ public abstract class BottomNavigationActivity extends NormalActivity {
     public void notifyFragmentsChange() {
         bnAdapter.setFragments(getFragmentHandle().getFragmentList());
         bnAdapter.notifyDataSetChanged();
+        viewPager.setAdapter(bnAdapter);
+        viewPager.setCurrentItem(currSelectedPos);
     }
 
     @Override
@@ -98,6 +101,10 @@ public abstract class BottomNavigationActivity extends NormalActivity {
         outState.putInt("position",currSelectedPos);
 
         super.onSaveInstanceState(outState);
+    }
+
+    protected void onTabSelected(int position) {
+
     }
 
     public abstract Controller getBottomnavigationController(TabStripBuild builder);

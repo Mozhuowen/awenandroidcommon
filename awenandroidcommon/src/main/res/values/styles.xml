@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="MIS_NO_ACTIONBAR" parent="Theme.AppCompat.Light.NoActionBar"></style>
+
+    <style name="ActionBarTitleStyle" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title">
+
+    </style>
 </resources>

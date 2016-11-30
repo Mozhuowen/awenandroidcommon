@@ -122,6 +122,11 @@ class TabItem extends View
      */
     private boolean hasMessages = false;
 
+    /**
+     * 判断是否使用传统模式
+     */
+    private boolean ifUseOldType = false;
+
 
     public TabItem(Context context)
     {
@@ -230,6 +235,11 @@ class TabItem extends View
         mColorDefault = color;
     }
 
+    protected void setIfUseOldType(boolean yes){
+        ifUseOldType = yes;
+    }
+
+
     /**
      * 获取选中后的颜色
      * @return 16进制整形表示的颜色，例如红色：0xFFFF0000
@@ -333,7 +343,10 @@ class TabItem extends View
             }
             else
             {
-                textPaint.setColor(mColorSelected);
+                if (ifUseOldType)
+                    textPaint.setColor(getContext().getResources().getColor(android.R.color.black));
+                else
+                    textPaint.setColor(mColorSelected);
             }
         }
 
@@ -354,48 +367,43 @@ class TabItem extends View
     {
         int width = (int) Utils.dp2px(mContext,WIDTH_ICON);
 
-        Bitmap bitmap = Bitmap.createBitmap(width,width,Bitmap.Config.ARGB_8888);
-        Canvas canvasTem = new Canvas(bitmap);
-        Paint paint = new Paint();
-        //判断是否选中再设置颜色
-        if(mScale == DEFAULT)
-        {
-            paint.setColor(mColorDefault);
-        }
-        else
-        {
-            if((mMode & TabLayoutMode.CHANGE_BACKGROUND_COLOR) > 0)
-            {
-                paint.setColor(SELECTED_COLOR_ON_MULTIPLE_BACKGROUND);
-            }
-            else
-            {
-                paint.setColor(mColorSelected);
-            }
-        }
-        paint.setAntiAlias(true);
-        canvasTem.drawRect(0,0,width,width,paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
-        canvasTem.drawBitmap(mScale == DEFAULT?mIconDefault:mIconSelected,0,0,paint);
-
-
-        float left = getMeasuredWidth()/2f-Utils.dp2px(mContext,12);
-
+        float left = getMeasuredWidth() / 2f - Utils.dp2px(mContext, 12);
         float top;
-        if((mMode & TabLayoutMode.HIDE_TEXT) > 0)
-        {
-            top = Utils.dp2px(mContext,16-10*n);
-        }
-        else
-        {
-            top = Utils.dp2px(mContext,8-2*n);
+        if ((mMode & TabLayoutMode.HIDE_TEXT) > 0) {
+            top = Utils.dp2px(mContext, 16 - 10 * n);
+        } else {
+            top = Utils.dp2px(mContext, 8 - 2 * n);
         }
 
-        canvas.drawBitmap(bitmap,left,top,null);
+        if (!ifUseOldType) {
 
-        //回收
-        bitmap.recycle();
+            Bitmap bitmap = Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888);
+            Canvas canvasTem = new Canvas(bitmap);
+            Paint paint = new Paint();
+            //判断是否选中再设置颜色
+            if (mScale == DEFAULT) {
+                paint.setColor(mColorDefault);
+            } else {
+                if ((mMode & TabLayoutMode.CHANGE_BACKGROUND_COLOR) > 0) {
+                    paint.setColor(SELECTED_COLOR_ON_MULTIPLE_BACKGROUND);
+                } else {
+                    paint.setColor(mColorSelected);
+                }
+            }
+            paint.setAntiAlias(true);
+            canvasTem.drawRect(0, 0, width, width, paint);
+
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+            canvasTem.drawBitmap(mScale == DEFAULT ? mIconDefault : mIconSelected, 0, 0, paint);
+
+
+            canvas.drawBitmap(bitmap, left, top, null);
+
+            //回收
+            bitmap.recycle();
+        } else {
+            canvas.drawBitmap(mScale == DEFAULT ? mIconDefault : mIconSelected, left, top, null);
+        }
     }
 
     /**
@@ -583,6 +591,12 @@ class TabItem extends View
         public TabItemBuild setTag(@NotNull Object object)
         {
             TabItem.this.setTag(object);
+            return builder.this;
+        }
+
+        @Override
+        public TabItemBuild setUseOldType(@NotNull boolean yes) {
+            TabItem.this.setIfUseOldType(yes);
             return builder.this;
         }
 
