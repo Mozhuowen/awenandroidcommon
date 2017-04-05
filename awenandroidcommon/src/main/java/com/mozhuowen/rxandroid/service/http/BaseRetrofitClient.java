@@ -62,10 +62,13 @@ public abstract class BaseRetrofitClient<T>
         TIME_OUT = timeout;
     }
 
-    public T getBaseClient (String domain,String basePath,Class retrofitclass,boolean ifLogging) {
+    public T getBaseClient (String domain,String basePath,Class retrofitclass,boolean ifLogging,boolean ifUsessl) {
         synchronized (monitor) {
             if ( baseRetrofit == null ) {
-                HOST = "http://"+domain;
+                if (ifUsessl)
+                    HOST = "https://"+domain;
+                else
+                    HOST = "http://"+domain;
                 BASEURL = HOST + basePath;
                 init( ifLogging );
                 baseRetrofit = (T)retrofit.create(retrofitclass);

@@ -117,7 +117,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             if (!enableBackArrow())
                 getSupportActionBar().setDisplayShowHomeEnabled(true);
             else {
-                final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+//                final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+                final Drawable upArrow = getResources().getDrawable(R.drawable.mis_ic_menu_back);
                 upArrow.setColorFilter(getResources().getColor(R.color.backarrow_color), PorterDuff.Mode.SRC_ATOP);
                 getSupportActionBar().setHomeAsUpIndicator(upArrow);
             }

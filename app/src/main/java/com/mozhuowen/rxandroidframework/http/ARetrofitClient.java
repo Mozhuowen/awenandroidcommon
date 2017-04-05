@@ -22,7 +22,7 @@ public class ARetrofitClient extends BaseRetrofitClient<ARetrofit> {
         if ( retrofit == null) {
 //            retrofit =  new ARetrofitClient().getBaseClient("release.crazyfit.appcomeon.com","/",ARetrofit.class, BuildConfig.DEBUG);
 //            retrofit =  new ARetrofitClient().getBaseClient("gank.io","/api/",ARetrofit.class, BuildConfig.DEBUG);
-            retrofit =  new ARetrofitClient().getBaseClient("192.155.87.173:5001","/",ARetrofit.class, BuildConfig.DEBUG);
+            retrofit =  new ARetrofitClient().getBaseClient("192.155.87.173:5001","/",ARetrofit.class, BuildConfig.DEBUG,false);
         }
 
         return retrofit;

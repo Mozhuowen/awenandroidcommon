@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -57,6 +58,23 @@ public class AppUtil {
         String android_id = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         return  android_id;
+    }
+
+    public int getLanguage() {
+        Locale locale = context.getResources().getConfiguration().locale;
+        String language = locale.getLanguage();
+        if (language.endsWith("zh"))
+            return 1;
+        else
+            return 2;
+    }
+
+    public String getDeviceModel() {
+        return Build.MODEL;
+    }
+
+    public String getDeviceOsVersion() {
+        return Build.VERSION.RELEASE;
     }
 
     public static String sHA1(Context context) {

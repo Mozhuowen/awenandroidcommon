@@ -37,6 +37,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
         initCreateView(view);
         initPresenter();
+
         return view;
     }
 

@@ -125,7 +125,7 @@ public abstract class AAActivity extends AActivity {
         setSupportActionBar(mCustomToolbar.getToolbar());
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-            final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+            final Drawable upArrow = getResources().getDrawable(R.drawable.mis_ic_menu_back);
             upArrow.setColorFilter(getResources().getColor(R.color.back_color), PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
@@ -285,7 +285,7 @@ public abstract class AAActivity extends AActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         else {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+            final Drawable upArrow = getResources().getDrawable(R.drawable.mis_ic_menu_back);
             upArrow.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
